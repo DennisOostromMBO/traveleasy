@@ -59,8 +59,8 @@
             <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <img src="{{ asset('img/destination1.png') }}" alt="Bestemming 1" class="w-full h-48 object-cover rounded-t-lg">
-                    <h3 class="text-2xl font-semibold text-blue-600 mt-4">Parijs, Frankrijk</h3>
-                    <p class="mt-4 text-gray-600">Ontdek de stad van de liefde met zijn iconische bezienswaardigheden en romantische sfeer.</p>
+                    <h3 class="text-2xl font-semibold text-blue-600 mt-4">Bagdad, Irak</h3>
+                    <p class="mt-4 text-gray-600">Ontdek de rijke geschiedenis en cultuur van Bagdad, een van de oudste steden ter wereld.</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-lg">
                     <img src="{{ asset('img/destination2.png') }}" alt="Bestemming 2" class="w-full h-48 object-cover rounded-t-lg">

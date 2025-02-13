@@ -1,13 +1,14 @@
-DELIMITER //
-
 CREATE PROCEDURE spGetAllCustomers()
 BEGIN
     SELECT 
         p.id AS person_id,
         CONCAT(p.first_name, ' ', COALESCE(p.middle_name, ''), ' ', p.last_name) AS full_name,
+        p.last_name,
         p.date_of_birth,
         p.passport_details,
         CONCAT(c.street_name, ' ', c.house_number, ' ', COALESCE(c.addition, ''), ', ', c.postal_code, ', ', c.city) AS full_address,
+        c.mobile,
+        cu.relation_number,
         CASE 
             WHEN TIMESTAMPDIFF(YEAR, p.date_of_birth, CURDATE()) <= 1 THEN 'Baby'
             WHEN TIMESTAMPDIFF(YEAR, p.date_of_birth, CURDATE()) BETWEEN 2 AND 3 THEN 'Peuter'
@@ -23,6 +24,4 @@ BEGIN
         customers cu ON p.id = cu.persons_id
     INNER JOIN 
         contacts c ON cu.id = c.customer_id;
-END //
-
-DELIMITER ;
+END;

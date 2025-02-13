@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -13,15 +14,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('person_id')->constrained('persons')->onDelete('cascade');
-            $table->string('username')->unique();
+            $table->foreignId('person_id')->nullable()->constrained('persons')->onDelete('cascade');
+            $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
+            $table->string('first_name');
+            $table->string('middle_name')->nullable();
+            $table->string('last_name');
+            $table->string('email', 191)->unique();
+            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_logged_in')->default(false);
             $table->timestamp('logged_in_at')->nullable();
-            $table->timestamp('logged_out_at')->nullable();
+            $table->timestamp('logged_out_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->boolean('is_active')->default(true);
-            $table->text('note')->nullable();
+            $table->rememberToken();
             $table->timestamps();
+            $table->string('comments')->nullable();
+            $table->string('full_name')->storedAs("CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name)");
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -46,6 +54,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('password_reset_tokens');
+        Schema::dropIfExists('sessions');
         Schema::dropIfExists('users');
     }
 };

@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CommunicationController;
 
 Route::get('/', function () {
     return view('index');
@@ -19,5 +20,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/customers', [CustomerController::class, 'index']);
+Route::get('/communications', [CommunicationController::class, 'index']);
 
 require __DIR__.'/auth.php';

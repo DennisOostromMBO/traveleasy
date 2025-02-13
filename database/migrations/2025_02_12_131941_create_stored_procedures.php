@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllCustomers');
         $path = database_path('sp/customers/spGetAllCustomers.sql');
         $sql = File::get($path);
         DB::unprepared($sql);

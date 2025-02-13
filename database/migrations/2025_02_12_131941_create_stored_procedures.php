@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 return new class extends Migration
 {
@@ -10,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-      
+        $path = database_path('sp/customers/spGetAllCustomers.sql');
+        $sql = File::get($path);
+        DB::unprepared($sql);
     }
 
     /**

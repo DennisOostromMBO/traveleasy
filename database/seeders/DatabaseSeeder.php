@@ -21,6 +21,12 @@ class DatabaseSeeder extends Seeder
             CustomersSeeder::class,
             ContactsSeeder::class,
             RolSeeder::class,
+            EmployeesSeeder::class, // Voeg de EmployeesSeeder toe
+            CommunicationsSeeder::class, // Voeg de CommunicationsSeeder toe
+            DeparturesSeeder::class,
+            DestinationsSeeder::class,
+            TravelsSeeder::class,
+
         ]);
 
 

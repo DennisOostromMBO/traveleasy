@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
 
         // Call the custom seeders
         $this->call([
-            EmployeesSeeder::class, // Voeg de EmployeesSeeder toe
             personsSeeder::class,
+            EmployeesSeeder::class, // Voeg de EmployeesSeeder toe
             CustomersSeeder::class,
             ContactsSeeder::class,
             CommunicationsSeeder::class, // Voeg de CommunicationsSeeder toe

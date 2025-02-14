@@ -12,7 +12,7 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-7xl">
-        <h1 class="text-2xl font-bold mb-6 text-center sm:text-left">Messages</h1>
+        <h1 class="text-2xl font-bold mb-6 text-center sm:text-left">Berichten</h1>
         
         {{-- Controleer of er berichten zijn --}}
         @if(count($messages) > 0)
@@ -69,7 +69,7 @@
                 @endforeach
             </div>
         @else
-            <p>No messages found.</p>
+            <p>Geen berichten gevonden
         @endif
     </div>
 </body>

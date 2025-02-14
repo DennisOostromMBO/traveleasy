@@ -23,7 +23,7 @@ class PersonFactory extends Factory
             'middle_name' => $tussenvoegsel,
             'last_name' => $this->faker->lastName(),
             'date_of_birth' => $this->faker->date(),
-            'passport_details' => $this->faker->optional()->text,
+            'passport_details' => $this->faker->text,
             'is_active' => $this->faker->boolean,
             'note' => $this->faker->optional()->sentence,
             'created_at' => now(),

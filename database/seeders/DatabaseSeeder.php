@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
+        \App\Models\Person::factory(10)->create();
 
         // Call the custom seeders
         $this->call([
@@ -26,6 +26,13 @@ class DatabaseSeeder extends Seeder
             DeparturesSeeder::class,
             DestinationsSeeder::class,
             TravelsSeeder::class,
+            CustomersSeeder::class,
+            ContactsSeeder::class,
+            RolSeeder::class,
         ]);
+
+
+        \App\Models\User::factory(10)->create();
+        
     }
 }

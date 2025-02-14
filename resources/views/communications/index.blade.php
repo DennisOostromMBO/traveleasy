@@ -21,10 +21,10 @@
                 <table class="min-w-full bg-white border border-gray-200 text-sm">
                     <thead>
                         <tr class="bg-gray-100">
-                            <th class="py-3 px-4 border-b text-left font-semibold">Customer Name</th>
-                            <th class="py-3 px-4 border-b text-left font-semibold">Employee Name</th>
-                            <th class="py-3 px-4 border-b text-left font-semibold">Message</th>
-                            <th class="py-3 px-4 border-b text-left font-semibold">Sent Date</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Klant Naam</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Werknemer Naam</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Bericht(en)</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Verzenddatum</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -46,24 +46,20 @@
                 @foreach($messages as $message)
                     <div class="bg-gray-50 p-4 rounded-lg shadow-md border border-gray-200">
                         <div class="mb-2">
-                            <span class="font-semibold">Customer Name:</span>
+                            <span class="font-semibold">Klant Naam:</span>
                             <span>{{ $message->customer_name }}</span>
                         </div>
                         <div class="mb-2">
-                            <span class="font-semibold">Employee Name:</span>
+                            <span class="font-semibold">Werknemer Naam:</span>
                             <span>{{ $message->employee_name }}</span>
                         </div>
                         <div class="mb-2">
-                            <span class="font-semibold">Message:</span>
+                            <span class="font-semibold">Bericht(en):</span>
                             <span>{{ $message->message }}</span>
                         </div>
                         <div class="mb-2">
-                            <span class="font-semibold">Sent Date:</span>
+                            <span class="font-semibold">Verzenddatum:</span>
                             <span>{{ $message->sent_date }}</span>
-                        </div>
-                        <div class="mb-2">
-                            <span class="font-semibold">Note:</span>
-                            <span>{{ $message->note }}</span>
                         </div>
                     </div>
                 @endforeach

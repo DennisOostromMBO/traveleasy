@@ -2,11 +2,11 @@ CREATE PROCEDURE spGetAllCustomers()
 BEGIN
     SELECT 
         p.id AS person_id,
-        CONCAT(p.first_name, ' ', COALESCE(p.middle_name, ''), ' ', p.last_name) AS full_name,
+        p.full_name,
         p.last_name,
         p.date_of_birth,
         p.passport_details,
-        CONCAT(c.street_name, ' ', c.house_number, ' ', COALESCE(c.addition, ''), ', ', c.postal_code, ', ', c.city) AS full_address,
+        c.full_address,
         c.mobile,
         cu.relation_number,
         CASE 

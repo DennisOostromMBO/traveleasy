@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('addition')->nullable();
             $table->string('postal_code');
             $table->string('city');
+            $table->string('full_address')->storedAs("CONCAT(street_name, ' ', house_number, ' ', COALESCE(addition, ''), ', ', postal_code, ', ', city)");
             $table->string('mobile');
             $table->string('email');
             $table->boolean('is_active');

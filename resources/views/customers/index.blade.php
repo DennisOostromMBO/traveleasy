@@ -40,6 +40,7 @@
                             <th class="py-3 px-4 border-b text-left font-semibold">Paspoort details</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Adres</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Mobiel</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Email</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Relatienummer</th>
                         </tr>
                     </thead>
@@ -51,6 +52,7 @@
                                 <td class="py-3 px-4 border-b">{{ $customer->passport_details }}</td>
                                 <td class="py-3 px-4 border-b">{{ $customer->full_address }}</td>
                                 <td class="py-3 px-4 border-b">{{ $customer->mobile }}</td>
+                                <td class="py-3 px-4 border-b">{{ $customer->email }}</td>
                                 <td class="py-3 px-4 border-b">{{ $customer->relation_number }}</td>
                             </tr>
                         @endforeach
@@ -81,6 +83,10 @@
                         <div class="mb-2">
                             <span class="font-semibold">Mobiel:</span>
                             <span>{{ $customer->mobile }}</span>
+                        </div>
+                        <div class="mb-2">
+                            <span class="font-semibold">Email:</span>
+                            <span>{{ $customer->email }}</span>
                         </div>
                         <div class="mb-2">
                             <span class="font-semibold">Relatienummer:</span>

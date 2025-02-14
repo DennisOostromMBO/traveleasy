@@ -8,6 +8,7 @@ BEGIN
         p.passport_details,
         c.full_address,
         c.mobile,
+        c.email,
         cu.relation_number,
         CASE 
             WHEN TIMESTAMPDIFF(YEAR, p.date_of_birth, CURDATE()) <= 1 THEN 'Baby'

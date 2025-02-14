@@ -23,7 +23,9 @@ class DatabaseSeeder extends Seeder
             CustomersSeeder::class,
             ContactsSeeder::class,
             CommunicationsSeeder::class, // Voeg de CommunicationsSeeder toe
-
+            DeparturesSeeder::class,
+            DestinationsSeeder::class,
+            TravelsSeeder::class,
         ]);
     }
 }

@@ -25,5 +25,18 @@ class EmployeesSeeder extends Seeder
             ],
             // Voeg hier meer records toe als dat nodig is
         ]);
+
+        DB::table('employees')->insert([
+            [
+                'person_id' => 2, // Zorg ervoor dat er een persoon met dit ID bestaat
+                'number' => 'EMP001',
+                'employee_type' => 'Manager',
+                'is_active' => true,
+                'note' => 'Initial employee record',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            // Voeg hier meer records toe als dat nodig is
+        ]);
     }
 }

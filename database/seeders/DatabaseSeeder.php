@@ -13,23 +13,18 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Maak 10 personen aan via de factory
+        // User::factory(10)->create();
         \App\Models\Person::factory(10)->create();
 
         // Call the custom seeders
         $this->call([
-            personsSeeder::class,
-            EmployeesSeeder::class, // Voeg de EmployeesSeeder toe
             CustomersSeeder::class,
             ContactsSeeder::class,
-            CommunicationsSeeder::class, // Voeg de CommunicationsSeeder toe
-            DeparturesSeeder::class,
-            DestinationsSeeder::class,
-            TravelsSeeder::class,
-            RolSeeder::class, // Voeg RolSeeder toe vanuit de main branch
+            RolSeeder::class,
         ]);
 
-        // Maak 10 gebruikers aan via de factory
+
         \App\Models\User::factory(10)->create();
+        
     }
 }

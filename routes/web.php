@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CommunicationController;
+use App\Http\Controllers\TravelsController; // Voeg de TravelsController toe
 
 Route::get('/', function () {
     return view('index');
@@ -21,6 +23,8 @@ Route::middleware('auth')->group(function () {
 
 
 Route::get('/customers', [CustomerController::class, 'index']);
+Route::get('/communications', [CommunicationController::class, 'index']);
+Route::get('/travels', [TravelsController::class, 'index']); // Nieuwe route voor reizenoverzicht
 
 require __DIR__.'/auth.php';
 require __DIR__.'/accountoverzicht.php';

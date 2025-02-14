@@ -31,9 +31,11 @@
                     <p class="mt-4 text-xl text-gray-200">Uw ultieme reisgenoot</p>
                     <h2 class="mt-8 text-3xl font-semibold text-white">Ontdek nieuwe bestemmingen</h2>
                     <p class="mt-4 text-lg text-gray-200">Verken de wereld met TravelEasy. Vind de beste plekken om te bezoeken, verblijven en dineren.</p>
+                    
                     <a href="{{ url('/explore') }}" class="mt-8 inline-block bg-blue-600 text-white py-3 px-6 rounded-full hover:bg-blue-700 transition">Ontdek Nu</a>
-                </div>
+                            </div>
             </div>
+            
         </div>
 
         <div class="container mx-auto px-4 py-16">

@@ -1,3 +1,4 @@
+CREATE PROCEDURE spGetAllTravels()
 BEGIN
     SELECT 
         t.id AS travel_id,
@@ -22,4 +23,4 @@ BEGIN
     JOIN persons p ON e.person_id = p.id
     JOIN departures d1 ON t.departure_id = d1.id
     JOIN destinations d2 ON t.destination_id = d2.id;
-END
+END;

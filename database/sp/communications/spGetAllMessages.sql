@@ -1,3 +1,4 @@
+CREATE PROCEDURE spGetAllMessages()
 BEGIN
     SELECT 
         c.id,
@@ -14,4 +15,4 @@ BEGIN
     LEFT JOIN employees e ON c.employee_id = e.id
     LEFT JOIN persons p_employee ON e.person_id = p_employee.id  
     WHERE c.is_active = 1;
-END
+END;

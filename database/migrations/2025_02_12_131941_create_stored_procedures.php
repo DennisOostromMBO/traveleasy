@@ -11,10 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // Drop existing procedures if they exist
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllCustomers');
-        $path = database_path('sp/customers/spGetAllCustomers.sql');
-        $sql = File::get($path);
-        DB::unprepared($sql);
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllMessages');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllTravels');
+
+        // Create spGetAllCustomers procedure
+        $pathCustomers = database_path('sp/customers/spGetAllCustomers.sql');
+        $sqlCustomers = File::get($pathCustomers);
+        DB::unprepared($sqlCustomers);
+
+        // Create spGetAllMessages procedure
+        $pathMessages = database_path('sp/communications/spGetAllMessages.sql');
+        $sqlMessages = File::get($pathMessages);
+        DB::unprepared($sqlMessages);
+
+        // Create spGetAllTravels procedure
+        $pathTravels = database_path('sp/travels/spGetAllTravels.sql');
+        $sqlTravels = File::get($pathTravels);
+        DB::unprepared($sqlTravels);
     }
 
     /**
@@ -22,6 +37,12 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // Drop procedures
+        //Dennis
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllCustomers');
+        //Fatih
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllMessages');
+        //Fatih
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllTravels');
     }
 };

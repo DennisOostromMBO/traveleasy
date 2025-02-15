@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             DeparturesSeeder::class,
             DestinationsSeeder::class,
             TravelsSeeder::class,
+            BookingsSeeder::class,
 
         ]);
 

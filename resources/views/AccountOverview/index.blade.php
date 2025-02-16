@@ -14,6 +14,23 @@
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-7xl">
         <h1 class="text-2xl font-bold mb-6 text-center sm:text-left">Account Overview</h1>
 
+        <!-- Search and Sort Form -->
+        <form method="GET" action="{{ url('/account-overview') }}" class="mb-6 flex items-center justify-between">
+            <div class="flex items-center">
+                <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by email" class="border border-gray-300 p-2 rounded-lg w-full">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Search</button>
+            </div>
+            <div class="flex items-center">
+                <label for="sort_role" class="mr-2">Sort by Role:</label>
+                <select name="sort_role" id="sort_role" class="border border-gray-300 p-2 rounded-lg">
+                    <option value="">Select</option>
+                    <option value="asc" {{ request('sort_role') == 'asc' ? 'selected' : '' }}>Ascending</option>
+                    <option value="desc" {{ request('sort_role') == 'desc' ? 'selected' : '' }}>Descending</option>
+                </select>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Sort</button>
+            </div>
+        </form>
+
         <!-- User List -->
         @if ($users->isEmpty())
             <h3 class="text-red-500 text-center">No user data available</h3>
@@ -68,7 +85,7 @@
 
             <!-- Pagination Links -->
             <div class="mt-6">
-                {{ $users->links() }}
+                {{ $users->appends(request()->query())->links() }}
             </div>
         @endif
 

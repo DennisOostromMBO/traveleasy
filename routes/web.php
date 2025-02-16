@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +21,5 @@ Route::middleware('auth')->group(function () {
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
 Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
 Route::get('/invoices/generate/{booking_id}', [InvoiceController::class, 'generate'])->name('invoices.generate');
-Route::get('/invoices/pdf/{id}', [PdfController::class, 'generateInvoicePdf'])->name('invoices.pdf');
 
 require __DIR__.'/auth.php';

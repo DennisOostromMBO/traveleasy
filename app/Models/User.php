@@ -18,9 +18,21 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'name',
+        'person_id',
+        'role_id',
+        'first_name',
+        'middle_name',
+        'last_name',
         'email',
+        'email_verified_at',
         'password',
+        'is_logged_in',
+        'logged_in_at',
+        'logged_out_at',
+        'is_active',
+        'remember_token',
+        'comments',
+        'full_name',
     ];
 
     /**
@@ -44,5 +56,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the role associated with the user.
+     */
+    public function role()
+    {
+        return $this->belongsTo(Rol::class, 'role_id');
     }
 }

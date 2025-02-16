@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('first_name');
             $table->string('middle_name')->nullable();
             $table->string('last_name');
+            $table->string('full_name')->storedAs("CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name)");
             $table->date('date_of_birth');
             $table->text('passport_details')->nullable();
             $table->boolean('is_active');

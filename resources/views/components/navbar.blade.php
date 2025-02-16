@@ -3,6 +3,7 @@
         <a href="{{ url('/') }}" class="text-2xl font-bold">TravelEasy</a>
         <div>
             <a href="{{ url('/invoices') }}" class="ml-4 hover:underline">Factuur</a> <!-- New link added -->
+            <a href="{{ url('/boekenKlant') }}" class="ml-4 hover:underline">Boeken</a>
             <a href="{{ url('/explore') }}" class="ml-4 hover:underline">Ontdek</a>
             <a href="{{ url('/about') }}" class="ml-4 hover:underline">Over Ons</a>
             <a href="{{ url('/contact') }}" class="ml-4 hover:underline">Contact</a>

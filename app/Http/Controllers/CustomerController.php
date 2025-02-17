@@ -19,7 +19,8 @@ class CustomerController extends Controller
 
         if ($search) {
             $filteredCustomers = array_filter($customers, function($customer) use ($search) {
-                return stripos($customer->last_name, $search) !== false;
+                $fullName = trim($customer->middle_name . ' ' . $customer->last_name);
+                return stripos($customer->last_name, $search) !== false || stripos($customer->middle_name, $search) !== false || stripos($fullName, $search) !== false;
             });
         } else {
             $filteredCustomers = $customers;

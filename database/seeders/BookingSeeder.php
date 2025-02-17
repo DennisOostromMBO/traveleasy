@@ -25,12 +25,12 @@ class BookingSeeder extends Seeder
                     'seat_number' => 'A' . rand(1, 100),
                     'purchase_date' => now(),
                     'purchase_time' => now(),
-                    'booking_status' => 'Confirmed',
+                    'booking_status' => 'Bevestigd',
                     'price' => rand(100, 1000),
                     'quantity' => rand(1, 5),
                     'special_requests' => 'None',
                     'is_active' => true,
-                    'note' => 'This is a dummy booking.',
+                    'note' => 'dummy booking :D.',
                 ]);
             }
         }

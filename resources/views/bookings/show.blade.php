@@ -17,11 +17,11 @@
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Klantnaam</th>
-                    <td class="py-3 px-4">{{ $booking->customer->name }}</td>
+                    <td class="py-3 px-4">{{ $booking->customer->person->first_name }} {{ $booking->customer->person->last_name }}</td>
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Reis</th>
-                    <td class="py-3 px-4">{{ $booking->travel->destination }}</td>
+                    <td class="py-3 px-4">{{ $booking->travel_id }}</td>
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Stoelnummer</th>
@@ -44,6 +44,9 @@
                     <td class="py-3 px-4">{{ $booking->note }}</td>
                 </tr>
             </table>
+            <div class="mt-6">
+                <a href="{{ route('bookings.edit', $booking->id) }}" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800">Bewerken</a>
+            </div>
         </div>
     </div>
 </body>

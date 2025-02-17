@@ -26,8 +26,8 @@ Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.ind
 Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
 Route::get('/invoices/generate/{booking_id}', [InvoiceController::class, 'generate'])->name('invoices.generate');
 
-Route::get('/customers', [CustomerController::class, 'index']);
 Route::get('/communications', [CommunicationController::class, 'index']);
 Route::get('/travels', [TravelsController::class, 'index']); // Nieuwe route voor reizenoverzicht
 require __DIR__.'/auth.php';
 require __DIR__.'/accountoverzicht.php';
+require __DIR__.'/customers.php';

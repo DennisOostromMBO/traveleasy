@@ -8,9 +8,16 @@
     <title>Onderhoud - TravelEasy</title>
     <!-- Include Tailwind CSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-image: url('{{ asset('img/sunbackground.png') }}');
+            background-size: cover;
+            background-position: center;
+        }
+    </style>
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg text-center">
+    <div class="bg-white bg-opacity-80 p-6 sm:p-8 md:p-12 rounded-lg shadow-lg text-center">
         <h1 class="text-3xl font-bold mb-4">TravelEasy</h1>
         <p class="text-lg mb-4">Onze website is momenteel in onderhoud.</p>
         <p class="text-lg mb-4">Onze excuses voor het ongemak. We zullen zo snel mogelijk weer online zijn.</p>

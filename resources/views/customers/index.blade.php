@@ -14,6 +14,11 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-7xl">
+        <!-- Link to Homepage -->
+        <div class="mb-6 text-left">
+            <a href="{{ url('/') }}" class="text-blue-500 hover:underline">Terug naar de homepage</a>
+        </div>
+
         <h1 class="text-2xl font-bold mb-6 text-center sm:text-left">Klanten</h1>
 
         <!-- Search Form -->
@@ -26,7 +31,8 @@
 
         <!-- Customer List -->
         @if ($tableEmpty)
-            <h3 class="text-red-500 text-center">Momenteel geen klantgegevens beschikbaar</h3>
+            <h3 class="text-red-500 text-center">Momenteel geen klantgegevens beschikbaar.</h3>
+            <h3 class="text-red-500 text-center">Je wordt binnen 4 seconden teruggestuurd naar de homepage.</h3>
         @elseif ($customers->isEmpty())
             <h3 class="text-red-500 text-center">Geen klant met deze achternaam gevonden.</h3>
         @else

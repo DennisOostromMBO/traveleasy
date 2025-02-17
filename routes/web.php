@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\BookingController;
-use App\Http\Controllers\PdfController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\CommunicationController;
+use App\Http\Controllers\TravelsController; // Voeg de TravelsController toe
+use App\Http\Controllers\boekenKlantController; // Voeg de boekenKlantController toe
 
 Route::get('/', function () {
     return view('index');
@@ -21,21 +23,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
-Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
-Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
 Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
-Route::get('/invoices/{id}/edit', [InvoiceController::class, 'edit'])->name('invoices.edit');
-Route::patch('/invoices/{id}', [InvoiceController::class, 'update'])->name('invoices.update');
-Route::delete('/invoices/{id}', [InvoiceController::class, 'destroy'])->name('invoices.destroy');
 Route::get('/invoices/generate/{booking_id}', [InvoiceController::class, 'generate'])->name('invoices.generate');
-Route::get('/invoices/pdf/{id}', [PdfController::class, 'generateInvoicePdf'])->name('invoices.pdf');
 
-Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
-Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
-Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
-Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings.show');
-Route::get('/bookings/{id}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
-Route::patch('/bookings/{id}', [BookingController::class, 'update'])->name('bookings.update');
-Route::delete('/bookings/{id}', [BookingController::class, 'destroy'])->name('bookings.destroy');
-
+Route::get('/boekenKlant', [boekenKlantController::class, 'index'])->name('boekenKlant');
+Route::get('/customers', [CustomerController::class, 'index']);
+Route::get('/communications', [CommunicationController::class, 'index']);
+Route::get('/travels', [TravelsController::class, 'index']); // Nieuwe route voor reizenoverzicht
 require __DIR__.'/auth.php';
+require __DIR__.'/accountoverzicht.php';

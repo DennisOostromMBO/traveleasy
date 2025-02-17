@@ -22,10 +22,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/customers', [CustomerController::class, 'index']);
 Route::get('/communications', [CommunicationController::class, 'index']);
 Route::get('/travels', [TravelsController::class, 'index']); // Nieuwe route voor reizenoverzicht
 
 require __DIR__.'/wassim_routes.php';
 require __DIR__.'/auth.php';
 require __DIR__.'/accountoverzicht.php';
+require __DIR__.'/customers.php';
+

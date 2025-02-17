@@ -8,15 +8,24 @@ use Illuminate\Http\Request;
 
 class InvoiceController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $invoices = Invoice::with('booking.customer')->get();
+        $search = $request->input('search');
+        $invoices = Invoice::with('booking.customer.person')
+            ->when($search, function ($query, $search) {
+                return $query->whereHas('booking.customer.person', function ($query) use ($search) {
+                    $query->where('first_name', 'like', "%{$search}%")
+                          ->orWhere('last_name', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10);
+
         return view('invoices.overzicht', compact('invoices'));
     }
 
     public function show($id)
     {
-        $invoice = Invoice::with('booking.customer')->findOrFail($id);
+        $invoice = Invoice::with('booking.customer.person')->findOrFail($id);
         return view('invoices.show', compact('invoice'));
     }
 
@@ -31,14 +40,13 @@ class InvoiceController extends Controller
         $request->validate([
             'booking_id' => 'required|exists:bookings,id',
             'invoice_date' => 'required|date',
-            'amount_incl_vat' => 'required|numeric',
             'invoice_status' => 'required|string|max:255',
             'is_active' => 'required|boolean',
             'note' => 'nullable|string',
         ]);
 
         $booking = Booking::findOrFail($request->booking_id);
-        $amount_incl_vat = $request->amount_incl_vat;
+        $amount_incl_vat = $booking->price;
         $vat = $amount_incl_vat * 0.21;
         $amount_excl_vat = $amount_incl_vat - $vat;
 
@@ -68,14 +76,14 @@ class InvoiceController extends Controller
         $request->validate([
             'booking_id' => 'required|exists:bookings,id',
             'invoice_date' => 'required|date',
-            'amount_incl_vat' => 'required|numeric',
             'invoice_status' => 'required|string|max:255',
             'is_active' => 'required|boolean',
             'note' => 'nullable|string',
         ]);
 
         $invoice = Invoice::findOrFail($id);
-        $amount_incl_vat = $request->amount_incl_vat;
+        $booking = Booking::findOrFail($request->booking_id);
+        $amount_incl_vat = $booking->price;
         $vat = $amount_incl_vat * 0.21;
         $amount_excl_vat = $amount_incl_vat - $vat;
 

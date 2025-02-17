@@ -25,7 +25,7 @@
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Klantnaam</th>
-                    <td class="py-3 px-4">{{ $invoice->booking->customer->name }}</td>
+                    <td class="py-3 px-4">{{ $invoice->booking->customer->person->first_name }} {{ $invoice->booking->customer->person->last_name }}</td>
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Bedrag excl. BTW</th>

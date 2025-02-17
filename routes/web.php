@@ -22,11 +22,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-
-Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
-Route::get('/invoices/{id}', [InvoiceController::class, 'show'])->name('invoices.show');
-Route::get('/invoices/generate/{booking_id}', [InvoiceController::class, 'generate'])->name('invoices.generate');
-
 Route::get('/customers', [CustomerController::class, 'index']);
 Route::get('/communications', [CommunicationController::class, 'index']);
 Route::get('/travels', [TravelsController::class, 'index']); // Nieuwe route voor reizenoverzicht

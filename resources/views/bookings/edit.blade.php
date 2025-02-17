@@ -10,7 +10,7 @@
     <div class="container mx-auto mt-10">
         <h1 class="text-3xl font-bold mb-6">Boeking Bewerken</h1>
         <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
-            <form action="{{ route('bookings.update', $booking->booking_id) }}" method="POST">
+            <form action="{{ route('bookings.update', $booking->id) }}" method="POST">
                 @csrf
                 @method('PATCH')
                 <div class="mb-4">

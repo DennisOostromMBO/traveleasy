@@ -4,23 +4,27 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class BookingController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $bookings = DB::select('CALL GetAllBookings()');
-        $bookings = collect($bookings)->map(function ($booking) {
-            return (array) $booking;
-        });
+        $search = $request->input('search');
+        $bookings = Booking::with('customer.person')
+            ->when($search, function ($query, $search) {
+                return $query->whereHas('customer.person', function ($query) use ($search) {
+                    $query->where('first_name', 'like', "%{$search}%")
+                          ->orWhere('last_name', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(10);
+
         return view('bookings.index', compact('bookings'));
     }
 
     public function show($id)
     {
-        $booking = DB::select('CALL GetBookingById(?)', [$id]);
-        $booking = collect($booking)->first();
+        $booking = Booking::with('customer.person')->findOrFail($id);
         return view('bookings.show', compact('booking'));
     }
 
@@ -52,8 +56,7 @@ class BookingController extends Controller
 
     public function edit($id)
     {
-        $booking = DB::select('CALL GetBookingById(?)', [$id]);
-        $booking = collect($booking)->first();
+        $booking = Booking::findOrFail($id);
         return view('bookings.edit', compact('booking'));
     }
 

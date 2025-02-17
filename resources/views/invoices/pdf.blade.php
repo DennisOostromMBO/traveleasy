@@ -45,11 +45,24 @@
             width: 100%;
             border-collapse: collapse;
         }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .logo span {
+            color: #fff;
+            background-color: #007BFF;
+            padding: 0 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
+            <div class="logo">
+                Travel<span>Easy</span>
+            </div>
             <h1>Factuur</h1>
             <p>Factuurnummer: {{ $invoice->invoice_number }}</p>
             <p>Factuurdatum: {{ $invoice->invoice_date }}</p>
@@ -63,7 +76,7 @@
                 </tr>
                 <tr>
                     <th>Klantnaam</th>
-                    <td>{{ $invoice->booking->customer->name }}</td>
+                    <td>{{ $invoice->booking->customer->person->first_name }} {{ $invoice->booking->customer->person->last_name }}</td>
                 </tr>
                 <tr>
                     <th>Bedrag excl. BTW</th>

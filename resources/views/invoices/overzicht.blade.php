@@ -9,6 +9,9 @@
 
     <div class="container mx-auto mt-10">
         <h1 class="text-3xl font-bold mb-6">Facturen Overzicht</h1>
+        <div class="mb-4">
+            <a href="{{ route('invoices.create') }}" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800">Nieuwe Factuur</a>
+        </div>
         <div class="bg-white shadow-md rounded-lg overflow-hidden">
             <table class="min-w-full bg-white">
                 <thead class="bg-blue-600 text-white">
@@ -33,7 +36,11 @@
                             <td class="w-1/6 py-3 px-4">{{ $invoice->created_at }}</td>
                             <td class="w-1/6 py-3 px-4">
                                 <a href="{{ route('invoices.show', $invoice->id) }}" class="text-blue-600 hover:underline">Bekijken</a>
-                                <a href="{{ route('invoices.generate', $invoice->booking_id) }}" class="text-blue-600 hover:underline ml-2">Genereren</a>
+                                <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Weet je zeker dat je deze factuur wilt verwijderen?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="text-red-600 hover:underline ml-2">Verwijderen</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

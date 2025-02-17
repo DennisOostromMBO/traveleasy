@@ -13,15 +13,15 @@
             <table class="min-w-full bg-white">
                 <tr>
                     <th class="py-3 px-4 text-left">Boeking ID</th>
-                    <td class="py-3 px-4">{{ $booking->id }}</td>
+                    <td class="py-3 px-4">{{ $booking->booking_id }}</td>
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Klantnaam</th>
-                    <td class="py-3 px-4">{{ $booking->customer->name }}</td>
+                    <td class="py-3 px-4">{{ $booking->customer_name }}</td>
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Reis</th>
-                    <td class="py-3 px-4">{{ $booking->travel->destination }}</td>
+                    <td class="py-3 px-4">{{ $booking->travel_id }}</td>
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Stoelnummer</th>
@@ -44,6 +44,9 @@
                     <td class="py-3 px-4">{{ $booking->note }}</td>
                 </tr>
             </table>
+            <div class="mt-6">
+                <a href="{{ route('bookings.edit', $booking->booking_id) }}" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800">Bewerken</a>
+            </div>
         </div>
     </div>
 </body>

@@ -25,16 +25,16 @@
                 <tbody class="text-gray-700">
                     @foreach($bookings as $booking)
                         <tr>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->id }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->customer->name }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->travel->destination }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->seat_number }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->price }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->booking_status }}</td>
+                            <td class="w-1/6 py-3 px-4">{{ $booking['booking_id'] }}</td>
+                            <td class="w-1/6 py-3 px-4">{{ $booking['customer_name'] }}</td>
+                            <td class="w-1/6 py-3 px-4">{{ $booking['travel_id'] }}</td>
+                            <td class="w-1/6 py-3 px-4">{{ $booking['seat_number'] }}</td>
+                            <td class="w-1/6 py-3 px-4">{{ $booking['price'] }}</td>
+                            <td class="w-1/6 py-3 px-4">{{ $booking['booking_status'] }}</td>
                             <td class="w-1/6 py-3 px-4">
-                                <a href="{{ route('bookings.show', $booking->id) }}" class="text-blue-600 hover:underline">Bekijken</a>
-                                <a href="{{ route('bookings.edit', $booking->id) }}" class="text-blue-600 hover:underline ml-2">Bewerken</a>
-                                <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="inline">
+                                <a href="{{ route('bookings.show', $booking['booking_id']) }}" class="text-blue-600 hover:underline">Bekijken</a>
+                                <a href="{{ route('bookings.edit', $booking['booking_id']) }}" class="text-blue-600 hover:underline ml-2">Bewerken</a>
+                                <form action="{{ route('bookings.destroy', $booking['booking_id']) }}" method="POST" class="inline-block" onsubmit="return confirm('Weet je zeker dat je deze boeking wilt verwijderen?');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="text-red-600 hover:underline ml-2">Verwijderen</button>

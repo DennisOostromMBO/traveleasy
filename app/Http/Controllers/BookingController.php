@@ -11,12 +11,16 @@ class BookingController extends Controller
     public function index()
     {
         $bookings = DB::select('CALL GetAllBookings()');
+        $bookings = collect($bookings)->map(function ($booking) {
+            return (array) $booking;
+        });
         return view('bookings.index', compact('bookings'));
     }
 
     public function show($id)
     {
         $booking = DB::select('CALL GetBookingById(?)', [$id]);
+        $booking = collect($booking)->first();
         return view('bookings.show', compact('booking'));
     }
 
@@ -32,7 +36,7 @@ class BookingController extends Controller
             'travel_id' => 'required|exists:travels,id',
             'seat_number' => 'required|string|max:255',
             'purchase_date' => 'required|date',
-            'purchase_time' => 'required|time',
+            'purchase_time' => 'required|date_format:H:i',
             'booking_status' => 'required|string|max:255',
             'price' => 'required|numeric',
             'quantity' => 'required|integer',
@@ -48,28 +52,23 @@ class BookingController extends Controller
 
     public function edit($id)
     {
-        $booking = Booking::findOrFail($id);
+        $booking = DB::select('CALL GetBookingById(?)', [$id]);
+        $booking = collect($booking)->first();
         return view('bookings.edit', compact('booking'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'customer_id' => 'required|exists:customers,id',
-            'travel_id' => 'required|exists:travels,id',
             'seat_number' => 'required|string|max:255',
-            'purchase_date' => 'required|date',
-            'purchase_time' => 'required|time',
-            'booking_status' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'quantity' => 'required|integer',
+            'booking_status' => 'required|string|max:255',
             'special_requests' => 'nullable|string',
-            'is_active' => 'required|boolean',
             'note' => 'nullable|string',
         ]);
 
         $booking = Booking::findOrFail($id);
-        $booking->update($request->all());
+        $booking->update($request->only(['seat_number', 'price', 'booking_status', 'special_requests', 'note']));
 
         return redirect()->route('bookings.index')->with('success', 'Booking updated successfully.');
     }

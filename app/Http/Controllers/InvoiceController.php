@@ -22,24 +22,37 @@ class InvoiceController extends Controller
 
     public function create()
     {
-        return view('invoices.create');
+        $bookings = Booking::with('customer.person')->get();
+        return view('invoices.create', compact('bookings'));
     }
 
     public function store(Request $request)
     {
         $request->validate([
             'booking_id' => 'required|exists:bookings,id',
-            'invoice_number' => 'required|string|max:255',
             'invoice_date' => 'required|date',
-            'amount_excl_vat' => 'required|numeric',
-            'vat' => 'required|numeric',
             'amount_incl_vat' => 'required|numeric',
             'invoice_status' => 'required|string|max:255',
             'is_active' => 'required|boolean',
             'note' => 'nullable|string',
         ]);
 
-        Invoice::create($request->all());
+        $booking = Booking::findOrFail($request->booking_id);
+        $amount_incl_vat = $request->amount_incl_vat;
+        $vat = $amount_incl_vat * 0.21;
+        $amount_excl_vat = $amount_incl_vat - $vat;
+
+        Invoice::create([
+            'booking_id' => $request->booking_id,
+            'invoice_number' => 'FACT-' . str_pad($booking->id, 6, '0', STR_PAD_LEFT),
+            'invoice_date' => $request->invoice_date,
+            'amount_excl_vat' => $amount_excl_vat,
+            'vat' => $vat,
+            'amount_incl_vat' => $amount_incl_vat,
+            'invoice_status' => $request->invoice_status,
+            'is_active' => $request->is_active,
+            'note' => $request->note,
+        ]);
 
         return redirect()->route('invoices.index')->with('success', 'Invoice created successfully.');
     }
@@ -54,10 +67,7 @@ class InvoiceController extends Controller
     {
         $request->validate([
             'booking_id' => 'required|exists:bookings,id',
-            'invoice_number' => 'required|string|max:255',
             'invoice_date' => 'required|date',
-            'amount_excl_vat' => 'required|numeric',
-            'vat' => 'required|numeric',
             'amount_incl_vat' => 'required|numeric',
             'invoice_status' => 'required|string|max:255',
             'is_active' => 'required|boolean',
@@ -65,7 +75,20 @@ class InvoiceController extends Controller
         ]);
 
         $invoice = Invoice::findOrFail($id);
-        $invoice->update($request->all());
+        $amount_incl_vat = $request->amount_incl_vat;
+        $vat = $amount_incl_vat * 0.21;
+        $amount_excl_vat = $amount_incl_vat - $vat;
+
+        $invoice->update([
+            'booking_id' => $request->booking_id,
+            'invoice_date' => $request->invoice_date,
+            'amount_excl_vat' => $amount_excl_vat,
+            'vat' => $vat,
+            'amount_incl_vat' => $amount_incl_vat,
+            'invoice_status' => $request->invoice_status,
+            'is_active' => $request->is_active,
+            'note' => $request->note,
+        ]);
 
         return redirect()->route('invoices.index')->with('success', 'Invoice updated successfully.');
     }
@@ -81,13 +104,17 @@ class InvoiceController extends Controller
     public function generate($booking_id)
     {
         $booking = Booking::findOrFail($booking_id);
+        $amount_incl_vat = $booking->price;
+        $vat = $amount_incl_vat * 0.21;
+        $amount_excl_vat = $amount_incl_vat - $vat;
+
         $invoice = new Invoice();
         $invoice->booking_id = $booking->id;
         $invoice->invoice_number = 'FACT-' . str_pad($booking->id, 6, '0', STR_PAD_LEFT);
         $invoice->invoice_date = now();
-        $invoice->amount_excl_vat = $booking->price * 0.79;
-        $invoice->vat = $booking->price * 0.21;
-        $invoice->amount_incl_vat = $booking->price;
+        $invoice->amount_excl_vat = $amount_excl_vat;
+        $invoice->vat = $vat;
+        $invoice->amount_incl_vat = $amount_incl_vat;
         $invoice->invoice_status = 'In afwachting';
         $invoice->is_active = true;
         $invoice->note = 'Dit is een voorbeeldfactuur.';

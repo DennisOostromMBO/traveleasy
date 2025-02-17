@@ -13,6 +13,7 @@
     @endif
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-7xl">
         <!-- Link to Homepage -->
         <div class="mb-6 text-left">
@@ -23,9 +24,14 @@
 
         <!-- Search Form -->
         <form method="GET" action="{{ url('/customers') }}" class="mb-6">
-            <div class="flex items-center">
-                <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Zoek op achternaam" class="border border-gray-300 p-2 rounded-lg w-full">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Zoek</button>
+            <div class="flex items-center gap-2">
+                <div class="flex-grow flex items-center">
+                    <input type="text" name="search" value="{{ $search ?? '' }}" placeholder="Zoek op achternaam" class="border border-gray-300 p-2 rounded-lg w-full">
+                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Zoek</button>
+                </div>
+                <button type="button" id="globalVisibilityToggle" class="bg-white p-2.5 rounded-lg shadow border border-gray-200 hover:bg-gray-50 transition-colors duration-200">
+                    <span class="text-xl" title="Toon/verberg telefoonnummers">👁️</span>
+                </button>
             </div>
         </form>
 
@@ -38,15 +44,15 @@
         @else
             <div class="hidden md:block overflow-x-auto">
                 <!-- Standard table for larger screens -->
-                <table class="min-w-full bg-white border border-gray-200 text-sm">
+                <table class="min-w-full table-auto">
                     <thead>
-                        <tr class="bg-gray-100">
+                        <tr class="bg-gray-100 text-gray-800 text-sm font-medium leading-normal">
                             <th class="py-3 px-4 border-b text-left font-semibold">Naam</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Leeftijdscategorie</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Paspoort details</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Adres</th>
-                            <th class="py-3 px-4 border-b text-left font-semibold">Mobiel</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Email</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Mobiel</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Relatienummer</th>
                         </tr>
                     </thead>
@@ -57,8 +63,10 @@
                                 <td class="py-3 px-4 border-b">{{ $customer->age_category }}</td>
                                 <td class="py-3 px-4 border-b">{{ $customer->passport_details }}</td>
                                 <td class="py-3 px-4 border-b">{{ $customer->full_address }}</td>
-                                <td class="py-3 px-4 border-b">{{ $customer->mobile }}</td>
                                 <td class="py-3 px-4 border-b">{{ $customer->email }}</td>
+                                <td class="py-3 px-4 border-b">
+                                    <span class="phone no-underline" data-phone="{{ $customer->mobile }}">06********</span>
+                                </td>
                                 <td class="py-3 px-4 border-b">{{ $customer->relation_number }}</td>
                             </tr>
                         @endforeach
@@ -87,12 +95,12 @@
                             <span>{{ $customer->full_address }}</span>
                         </div>
                         <div class="mb-2">
-                            <span class="font-semibold">Mobiel:</span>
-                            <span>{{ $customer->mobile }}</span>
-                        </div>
-                        <div class="mb-2">
                             <span class="font-semibold">Email:</span>
                             <span>{{ $customer->email }}</span>
+                        </div>
+                        <div class="mb-2 flex items-center">
+                            <span class="font-semibold">Mobiel:</span>
+                            <span class="phone ml-2 no-underline" data-phone="{{ $customer->mobile }}">06********</span>
                         </div>
                         <div class="mb-2">
                             <span class="font-semibold">Relatienummer:</span>
@@ -108,5 +116,35 @@
             </div>
         @endif
     </div>
+    <script>
+        let numbersVisible = false;
+        
+        document.getElementById('globalVisibilityToggle').addEventListener('click', function() {
+            numbersVisible = !numbersVisible;
+            document.querySelectorAll('.phone').forEach(span => {
+                span.textContent = numbersVisible ? span.getAttribute('data-phone') : '06********';
+            });
+            
+            // Update button appearance
+            this.classList.toggle('active');
+        });
+    </script>
+    <style>
+        #globalVisibilityToggle {
+            transition: transform 0.2s;
+        }
+        
+        #globalVisibilityToggle:hover {
+            transform: scale(1.1);
+        }
+        
+        #globalVisibilityToggle.active {
+            background-color: #e5e7eb;
+        }
+        
+        .no-underline {
+            text-decoration: none;
+        }
+    </style>
 </body>
 </html>

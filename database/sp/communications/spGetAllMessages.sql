@@ -7,8 +7,8 @@ BEGIN
         c.message,
         c.sent_date,
         c.note,
-        CONCAT(p_customer.first_name, ' ', p_customer.last_name) AS customer_name,  
-        CONCAT(p_employee.first_name, ' ', p_employee.last_name) AS employee_name
+        p_customer.full_name AS customer_name,  
+        p_employee.full_name AS employee_name
     FROM communications c
     LEFT JOIN customers cu ON c.customer_id = cu.id
     LEFT JOIN persons p_customer ON cu.persons_id = p_customer.id  

@@ -3,6 +3,7 @@ BEGIN
     SELECT 
         p.id AS person_id,
         p.full_name,
+        p.middle_name,
         p.last_name,
         p.date_of_birth,
         p.passport_details,

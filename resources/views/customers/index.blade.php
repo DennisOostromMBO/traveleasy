@@ -65,7 +65,9 @@
                                 <td class="py-3 px-4 border-b">{{ $customer->full_address }}</td>
                                 <td class="py-3 px-4 border-b">{{ $customer->email }}</td>
                                 <td class="py-3 px-4 border-b">
-                                    <span class="phone no-underline" data-phone="{{ $customer->mobile }}">06********</span>
+                                    <span class="phone-container">
+                                        <span class="phone no-underline" data-phone="{{ $customer->mobile }}">06********</span>
+                                    </span>
                                 </td>
                                 <td class="py-3 px-4 border-b">{{ $customer->relation_number }}</td>
                             </tr>
@@ -100,7 +102,9 @@
                         </div>
                         <div class="mb-2 flex items-center">
                             <span class="font-semibold">Mobiel:</span>
-                            <span class="phone ml-2 no-underline" data-phone="{{ $customer->mobile }}">06********</span>
+                            <span class="phone-container ml-2">
+                                <span class="phone no-underline" data-phone="{{ $customer->mobile }}">06********</span>
+                            </span>
                         </div>
                         <div class="mb-2">
                             <span class="font-semibold">Relatienummer:</span>
@@ -144,6 +148,20 @@
         
         .no-underline {
             text-decoration: none;
+        }
+
+        .phone-container {
+            display: inline-block;
+            min-width: 120px;
+            font-family: inherit;
+        }
+
+        .phone {
+            display: inline-block;
+            width: 100%;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
         }
     </style>
 </body>

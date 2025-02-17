@@ -26,12 +26,12 @@ class DatabaseSeeder extends Seeder
             DeparturesSeeder::class,
             DestinationsSeeder::class,
             TravelsSeeder::class,
-            BookingsSeeder::class,
-
+            BookingSeeder::class,
+            InvoiceSeeder::class,
         ]);
 
 
         \App\Models\User::factory(10)->create();
-        
+
     }
 }

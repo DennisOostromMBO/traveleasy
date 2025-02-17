@@ -16,13 +16,17 @@ class InvoiceSeeder extends Seeder
         $bookings = Booking::all();
 
         foreach ($bookings as $booking) {
+            $amount_excl_vat = $booking->price * 0.79;
+            $vat = $booking->price * 0.21;
+            $amount_incl_vat = $booking->price;
+
             Invoice::create([
                 'booking_id' => $booking->id,
                 'invoice_number' => 'FACT-' . str_pad($booking->id, 6, '0', STR_PAD_LEFT),
                 'invoice_date' => now(),
-                'amount_excl_vat' => $booking->total_amount * 0.79,
-                'vat' => $booking->total_amount * 0.21,
-                'amount_incl_vat' => $booking->total_amount,
+                'amount_excl_vat' => $amount_excl_vat,
+                'vat' => $vat,
+                'amount_incl_vat' => $amount_incl_vat,
                 'invoice_status' => 'In afwachting',
                 'is_active' => true,
                 'note' => 'Dit is een voorbeeldfactuur.',

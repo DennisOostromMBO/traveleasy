@@ -33,7 +33,7 @@
 
         <!-- User List -->
         @if ($users->isEmpty())
-            <h3 class="text-red-500 text-center">No user data available</h3>
+            <h3 class="text-red-500 text-center">Er zijn helaas geen gebruiker accounts.</h3>
         @else
             <div class="hidden md:block overflow-x-auto">
                 <!-- Standard table for larger screens -->

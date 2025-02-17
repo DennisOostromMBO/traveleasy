@@ -12,13 +12,13 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-7xl">
-        <h1 class="text-2xl font-bold mb-6 text-center sm:text-left">Account Overview</h1>
+        <h1 class="text-3xl font-bold mb-6 text-center sm:text-left">Account Overview</h1>
 
         <!-- Search and Sort Form -->
         <form method="GET" action="{{ url('/account-overview') }}" class="mb-6 flex items-center justify-between">
             <div class="flex items-center">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by email" class="border border-gray-300 p-2 rounded-lg w-full">
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Search</button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-800">Search</button>
             </div>
             <div class="flex items-center">
                 <label for="sort_role" class="mr-2">Sort by Role:</label>
@@ -27,7 +27,7 @@
                     <option value="asc" {{ request('sort_role') == 'asc' ? 'selected' : '' }}>Ascending</option>
                     <option value="desc" {{ request('sort_role') == 'desc' ? 'selected' : '' }}>Descending</option>
                 </select>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-lg ml-2">Sort</button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-800">Sort</button>
             </div>
         </form>
 
@@ -38,15 +38,15 @@
             <div class="hidden md:block overflow-x-auto">
                 <!-- Standard table for larger screens -->
                 <table class="min-w-full bg-white border border-gray-200 text-sm">
-                    <thead>
-                        <tr class="bg-gray-100">
+                    <thead class="bg-blue-600 text-white">
+                        <tr>
                             <th class="py-3 px-4 border-b text-left font-semibold">Full Name</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Email</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Role</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Active</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-gray-700">
                         @foreach ($users as $user)
                             <tr class="hover:bg-gray-50">
                                 <td class="py-3 px-4 border-b">{{ $user->full_name }}</td>
@@ -91,7 +91,7 @@
 
         <!-- Back to Home Button -->
         <div class="mt-6">
-            <a href="{{ url('/') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg">
+            <a href="{{ url('/') }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-800">
                 Back to Home
             </a>
         </div>

@@ -11,13 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        // Drop existing procedure if it exists
+        // Drop existing procedures if they exist
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllUsers');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllRoles');
 
         // Create spGetAllUsers procedure
         $pathUsers = database_path('sp/users/spGetAllUsers.sql');
         $sqlUsers = File::get($pathUsers);
         DB::unprepared($sqlUsers);
+
+        // Create spGetAllRoles procedure
+        $pathRoles = database_path('sp/roles/spGetAllRoles.sql');
+        $sqlRoles = File::get($pathRoles);
+        DB::unprepared($sqlRoles);
     }
 
     /**
@@ -25,7 +31,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        // Drop procedure
+        // Drop procedures
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllUsers');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllRoles');
     }
 };

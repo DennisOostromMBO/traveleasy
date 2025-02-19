@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Rol;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AccountOverviewController extends Controller
 {
@@ -22,15 +23,15 @@ class AccountOverviewController extends Controller
 
         // Sorteer op rol naam
         if ($request->has('sort_role') && $request->input('sort_role') != '') {
-            $query->join('roles', 'users.role_id', '=', 'roles.id')
-                  ->orderBy('roles.name', $request->input('sort_role'))
-                  ->select('users.*');
+            $query->whereHas('role', function ($q) use ($request) {
+                $q->where('name', $request->input('sort_role'));
+            });
         }
 
         $users = $query->paginate(5);
 
         // Haal alle rollen op voor de sorteeropties
-        $roles = Rol::all();
+        $roles = DB::select('CALL spGetAllRoles()');
 
         return view('accountOverview.index', compact('users', 'roles'));
     }

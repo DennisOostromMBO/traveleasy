@@ -19,6 +19,9 @@
                         <th class="py-3 px-4 border-b">Bestemming</th>
                         <th class="py-3 px-4 border-b">Vluchtnummer</th>
                         <th class="py-3 px-4 border-b">Vertrekdatum</th>
+                        <th class="py-3 px-4 border-b">Vertrektijd</th>
+                        <th class="py-3 px-4 border-b">Aankomstdatum</th>
+                        <th class="py-3 px-4 border-b">Aankomsttijd</th>
                         <th class="py-3 px-4 border-b">Status</th>
                     </tr>
                 </thead>
@@ -30,6 +33,9 @@
                             <td class="py-3 px-4 border-b">{{ $travel->destination_country }} - {{ $travel->destination_airport }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->flight_number }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->departure_date }}</td>
+                            <td class="py-3 px-4 border-b">{{ $travel->departure_time }}</td>
+                            <td class="py-3 px-4 border-b">{{ $travel->arrival_date }}</td>
+                            <td class="py-3 px-4 border-b">{{ $travel->arrival_time }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->travel_status }}</td>
                         </tr>
                     @endforeach

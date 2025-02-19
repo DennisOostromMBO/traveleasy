@@ -176,10 +176,17 @@
         });
     </script>
     <style>
-        .phone-container,
+        .phone-container {
+            display: inline-block;
+            min-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
         .masked-container {
             display: inline-block;
-            min-width: 200px; /* Increased to accommodate longer email addresses */
+            min-width: 200px;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -189,7 +196,7 @@
         .masked-content {
             display: inline-block;
             width: 100%;
-            padding-right: 4px; /* Add small padding to prevent text from touching the eye icon */
+            padding-right: 2px;
         }
 
         /* Rest of the styles remain the same */

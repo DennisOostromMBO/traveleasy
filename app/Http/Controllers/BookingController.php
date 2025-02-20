@@ -4,22 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\MessageBag;
+use Illuminate\Support\Collection;
 
 class BookingController extends Controller
 {
     public function index(Request $request)
     {
+        $booking = new Booking();
+        $bookings = collect($booking->getAllBookings());
         $search = $request->input('search');
-        $bookings = Booking::with('customer.person')
-            ->when($search, function ($query, $search) {
-                return $query->whereHas('customer.person', function ($query) use ($search) {
-                    $query->where('first_name', 'like', "%{$search}%")
-                          ->orWhere('last_name', 'like', "%{$search}%");
-                });
-            })
-            ->paginate(10);
+        $errors = new MessageBag();
 
-        return view('bookings.index', compact('bookings'));
+        if ($search) {
+            $bookings = $bookings->filter(function($booking) use ($search) {
+                return stripos($booking->departure_country, $search) !== false || stripos($booking->destination_country, $search) !== false;
+            });
+
+            if ($bookings->isEmpty()) {
+                $errors->add('search', 'Geen reizen gevonden.');
+            }
+        }
+
+        if ($bookings->isEmpty() && !$search) {
+            $errors->add('search', 'Momenteel geen boekingen beschikbaar.');
+        }
+
+        return view('bookings.index', compact('bookings', 'errors'));
     }
 
     public function show($id)

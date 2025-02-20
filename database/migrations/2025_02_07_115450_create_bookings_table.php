@@ -15,6 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('customer_id')->constrained()->onDelete('cascade');
             $table->foreignId('travel_id')->constrained('travels')->onDelete('cascade');
+            $table->string('departure_country');
+            $table->string('destination_country');
+            $table->date('departure_date');
             $table->string('seat_number');
             $table->date('purchase_date');
             $table->time('purchase_time');

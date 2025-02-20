@@ -21,3 +21,4 @@ Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings
 Route::get('/bookings/{id}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
 Route::patch('/bookings/{id}', [BookingController::class, 'update'])->name('bookings.update');
 Route::delete('/bookings/{id}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+Route::get('/bookings/purchase/{id}', [BookingController::class, 'purchase'])->name('bookings.purchase');

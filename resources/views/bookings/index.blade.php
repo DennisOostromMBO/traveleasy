@@ -47,6 +47,11 @@
                 </div>
             @endforeach
         </div>
+        
+        <!-- Pagination Links -->
+        <div class="mt-6 flex justify-center">
+            {{ $bookings->links() }}
+        </div>
     </div>
 </body>
 </html>

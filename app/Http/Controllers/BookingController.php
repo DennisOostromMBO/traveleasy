@@ -31,6 +31,19 @@ class BookingController extends Controller
             $errors->add('search', 'Momenteel geen boekingen beschikbaar.');
         }
 
+        // Convert collection to paginator
+        $page = $request->input('page', 1);
+        $perPage = 6;
+        $items = $bookings->forPage($page, $perPage);
+        
+        $bookings = new \Illuminate\Pagination\LengthAwarePaginator(
+            $items,
+            $bookings->count(),
+            $perPage,
+            $page,
+            ['path' => $request->url(), 'query' => $request->query()]
+        );
+
         return view('bookings.index', compact('bookings', 'errors'));
     }
 

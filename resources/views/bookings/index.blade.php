@@ -18,7 +18,6 @@
         </div>
         @if(isset($errors) && $errors->has('search'))
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
-                <strong class="font-bold">Error!</strong>
                 <span class="block sm:inline">{{ $errors->first('search') }}</span>
             </div>
         @endif
@@ -50,7 +49,7 @@
         
         <!-- Pagination Links -->
         <div class="mt-6 flex justify-center">
-            {{ $bookings->links() }}
+            {{ $bookings->links('vendor.pagination.tailwind') }}
         </div>
     </div>
 </body>

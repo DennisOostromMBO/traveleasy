@@ -1,56 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="nl">
 <head>
-    <title>Boekingen Overzicht</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vluchten Overzicht</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100">
-    @include('components.navbar')
 
-    <div class="container mx-auto mt-10">
-        <h1 class="text-3xl font-bold mb-6">Boekingen Overzicht</h1>
+<body class="bg-gray-100 min-h-screen">
+    @include('components.navbar')
+    <div class="container mx-auto px-4 py-8">
         <div class="mb-4">
-            <form action="{{ route('bookings.index') }}" method="GET">
+            <form action="{{ route('bookings.index') }}" method="GET" class="flex items-center">
                 <input type="text" name="search" placeholder="Zoeken..." class="w-full px-4 py-2 border rounded-lg" value="{{ request('search') }}">
-                <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800 mt-2">Zoeken</button>
+                <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800 ml-2">Zoeken</button>
             </form>
         </div>
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
-            <table class="min-w-full bg-white">
-                <thead class="bg-blue-600 text-white">
-                    <tr>
-                        <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Klantnaam</th>
-                        <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Reis</th>
-                        <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Stoelnummer</th>
-                        <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Prijs</th>
-                        <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Status</th>
-                        <th class="w-1/6 py-3 px-4 uppercase font-semibold text-sm">Acties</th>
-                    </tr>
-                </thead>
-                <tbody class="text-gray-700">
-                    @foreach($bookings as $booking)
-                        <tr>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->customer->person->first_name }} {{ $booking->customer->person->last_name }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->travel_id }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->seat_number }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->price }}</td>
-                            <td class="w-1/6 py-3 px-4">{{ $booking->booking_status }}</td>
-                            <td class="w-1/6 py-3 px-4">
-                                <a href="{{ route('bookings.show', $booking->id) }}" class="text-blue-600 hover:underline">Bekijken</a>
-                                <a href="{{ route('bookings.edit', $booking->id) }}" class="text-blue-600 hover:underline ml-2">Bewerken</a>
-                                <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" class="inline-block" onsubmit="return confirm('Weet je zeker dat je deze boeking wilt verwijderen?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="text-red-600 hover:underline ml-2">Verwijderen</button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            <div class="p-4">
-                {{ $bookings->links() }}
+        @if(isset($errors) && $errors->has('search'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline">{{ $errors->first('search') }}</span>
             </div>
+        @endif
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            @foreach($bookings as $booking)
+                <div class="bg-white shadow-lg rounded-lg p-6 w-full max-w-xs">
+                    <!-- Vertrek & Bestemming -->
+                    <div>
+                        <p class="text-gray-800 font-semibold text-lg">{{ $booking->departure_country }}</p>
+                        <p class="text-gray-600 text-md">{{ $booking->destination_country }}</p>
+                    </div>
+
+                    <!-- Datum -->
+                    <div class="flex items-center text-gray-500 mt-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5 mr-2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10m-12 6h14M5 3h14a2 2 0 012 2v16a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z" />
+                        </svg>
+                        <p>{{ $booking->departure_date}}</p>
+                    </div>
+
+                    <!-- Prijs en Boeken knop -->
+                    <div class="border-t mt-4 pt-4 flex justify-between items-center">
+                        <p class="text-gray-700">Vanaf <span class="font-bold text-lg">€{{ number_format($booking->price, 2) }}</span></p>
+                        <a href="{{ route('bookings.show', $booking->booking_id) }}" class="bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-purple-800">Boek</a>
+                    </div>
+                </div>
+            @endforeach
+        </div>
+        
+        <!-- Pagination Links -->
+        <div class="mt-6 flex justify-center">
+            {{ $bookings->links('vendor.pagination.tailwind') }}
         </div>
     </div>
 </body>

@@ -34,14 +34,14 @@
                 <p class="mt-4 text-lg text-gray-200">Verken de wereld met TravelEasy. Vind de beste plekken om te bezoeken, verblijven en dineren.</p>
                 
                 <!-- Search Bar -->
-                <div class="mt-8 flex justify-center">
-                    <input type="text" placeholder="Zoek bestemming" class="py-3 px-6 rounded-l-full border-none focus:outline-none w-64">
-                    <button class="bg-blue-600 text-white py-3 px-6 rounded-r-full hover:bg-blue-700 transition">
+                <form action="{{ url('/bookings') }}" method="GET" class="mt-8 flex justify-center">
+                    <input type="text" name="search" placeholder="Zoek bestemming" class="py-3 px-6 rounded-l-full border-none focus:outline-none w-64">
+                    <button type="submit" class="bg-blue-600 text-white py-3 px-6 rounded-r-full hover:bg-blue-700 transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m1.35-5.65a7 7 0 11-14 0 7 7 0 0114 0z" />
                         </svg>
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     </div>

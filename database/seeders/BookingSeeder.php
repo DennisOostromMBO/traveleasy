@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Booking;
 use App\Models\Customer;
 use App\Models\Travel;
+use Illuminate\Support\Facades\DB;
 
 class BookingSeeder extends Seeder
 {
@@ -16,12 +17,19 @@ class BookingSeeder extends Seeder
     {
         $customers = Customer::all();
         $travels = Travel::all();
+        $departures = DB::table('departures')->get()->keyBy('id'); // Fetch departures and key by id
+        $destinations = DB::table('destinations')->get()->keyBy('id'); // Fetch destinations and key by id
 
         foreach ($customers as $customer) {
             foreach ($travels as $travel) {
+                $departure = $departures->get($travel->departure_id); // Get the departure details
+                $destination = $destinations->get($travel->destination_id); // Get the destination details
                 Booking::create([
                     'customer_id' => $customer->id,
                     'travel_id' => $travel->id,
+                    'departure_country' => $departure->country, 
+                    'destination_country' => $destination->country,
+                    'departure_date' => $travel->departure_date,
                     'seat_number' => 'A' . rand(1, 100),
                     'purchase_date' => now(),
                     'purchase_time' => now(),

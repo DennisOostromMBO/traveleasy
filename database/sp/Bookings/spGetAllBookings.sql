@@ -5,6 +5,9 @@ BEGIN
         c.id AS customer_id,
         CONCAT(p.first_name, ' ', p.last_name) AS customer_name,
         t.id AS travel_id,
+        d1.country AS departure_country,
+        d2.country AS destination_country,
+        t.departure_date,
         b.seat_number,
         b.purchase_date,
         b.purchase_time,
@@ -23,6 +26,10 @@ BEGIN
     JOIN
         travels t ON b.travel_id = t.id
     JOIN
-        persons p ON c.persons_id = p.id;
+        persons p ON c.persons_id = p.id
+    JOIN
+        departures d1 ON t.departure_id = d1.id
+    JOIN
+        destinations d2 ON t.destination_id = d2.id;
 END;
 

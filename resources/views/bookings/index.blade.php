@@ -40,7 +40,14 @@
 
                     <!-- Prijs en Boeken knop -->
                     <div class="border-t mt-4 pt-4 flex justify-between items-center">
-                        <p class="text-gray-700">Vanaf <span class="font-bold text-lg">€{{ number_format($booking->price, 2) }}</span></p>
+                        @if($booking->sale > 0)
+                            <div>
+                                <p class="text-gray-500 line-through">€{{ number_format($booking->price, 2) }}</p>
+                                <p class="text-red-600 font-bold text-lg">€{{ number_format($booking->price * (1 - $booking->sale / 100), 2) }}</p>
+                            </div>
+                        @else
+                            <p class="text-gray-700">Vanaf <span class="font-bold text-lg">€{{ number_format($booking->price, 2) }}</span></p>
+                        @endif
                         <a href="{{ route('bookings.show', $booking->booking_id) }}" class="bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-purple-800">Boek</a>
                     </div>
                 </div>

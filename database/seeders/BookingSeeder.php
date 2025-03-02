@@ -20,11 +20,17 @@ class BookingSeeder extends Seeder
         $departures = DB::table('departures')->get()->keyBy('id'); // Fetch departures and key by id
         $destinations = DB::table('destinations')->get()->keyBy('id'); // Fetch destinations and key by id
 
+        $totalBookings = $customers->count() * $travels->count();
+        $saleBookingsCount = (int) ($totalBookings * 0.1); // 10% van alle boekingen
+
+        $saleBookings = collect();
+
         foreach ($customers as $customer) {
             foreach ($travels as $travel) {
                 $departure = $departures->get($travel->departure_id); // Get the departure details
                 $destination = $destinations->get($travel->destination_id); // Get the destination details
-                Booking::create([
+
+                $booking = Booking::create([
                     'customer_id' => $customer->id,
                     'travel_id' => $travel->id,
                     'departure_country' => $departure->country, 
@@ -39,8 +45,16 @@ class BookingSeeder extends Seeder
                     'special_requests' => 'None',
                     'is_active' => true,
                     'note' => 'dummy booking :D.',
+                    'sale' => 0, // Default sale value
                 ]);
+
+                $saleBookings->push($booking);
             }
         }
+
+        // Select random bookings for sale
+        $saleBookings->random($saleBookingsCount)->each(function ($booking) {
+            $booking->update(['sale' => rand(1, 50)]); // Assign a random sale percentage between 1 and 50
+        });
     }
 }

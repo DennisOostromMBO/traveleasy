@@ -84,6 +84,31 @@
             </div>
         </div>
     </div>
+
+    <div class="container mx-auto px-4 py-16">
+        <h2 class="text-3xl font-bold text-center text-blue-600">Aanbieding</h2>
+        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-8">
+            @php
+                $saleBooking = \App\Models\Booking::where('sale', '>', 0)->inRandomOrder()->first();
+            @endphp
+            @if($saleBooking)
+                <div class="bg-white p-6 rounded-lg shadow-lg">
+                    <h3 class="text-2xl font-semibold text-blue-600">{{ $saleBooking->departure_country }} naar {{ $saleBooking->destination_country }}</h3>
+                    <p class="mt-4 text-gray-600">Vertrek op {{ $saleBooking->departure_date }}</p>
+                    <p class="mt-4 text-gray-600">Stoelnummer: {{ $saleBooking->seat_number }}</p>
+                    <div class="mt-4">
+                        <p class="text-gray-500 line-through">€{{ number_format($saleBooking->price, 2) }}</p>
+                        <p class="text-red-600 font-bold text-lg">€{{ number_format($saleBooking->price * (1 - $saleBooking->sale / 100), 2) }}</p>
+                    </div>
+                    <a href="{{ route('bookings.show', $saleBooking->id) }}" class="mt-4 inline-block bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Bekijk aanbieding</a>
+                </div>
+            @endif
+        </div>
+        <div class="mt-8 text-center">
+            <a href="{{ route('bookings.sales') }}" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Bekijk alle aanbiedingen</a>
+        </div>
+    </div>
+
     <x-footer />
 </body>
 </html>

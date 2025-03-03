@@ -47,6 +47,19 @@ class CustomerController extends Controller
         return view('customers.index', ['customers' => $paginatedItems, 'search' => $search, 'tableEmpty' => false]);
     }
 
+    public function create()
+    {
+        return view('customers.create');
+    }
+
+    public function store(Request $request)
+    {
+        // For now, just redirect back to index
+        // We'll implement the actual store logic later
+        return redirect()->route('customers.index')
+            ->with('info', 'Create functionaliteit wordt binnenkort geïmplementeerd.');
+    }
+
     public function edit($id)
     {
         $customer = collect(DB::select('CALL spGetCustomerById(?)', [$id]))->first();

@@ -49,7 +49,7 @@
                         @error('first_name')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Naam</label>
+                        <label class="block text-sm font-medium text-gray-700">Voornaam</label>
                         <input type="text" name="first_name" value="{{ old('first_name', $customer->first_name) }}" 
                                class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
                     </div>

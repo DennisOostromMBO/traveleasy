@@ -28,9 +28,15 @@
             @csrf
             @method('PUT')
 
-            @if ($errors->any())
+            @if ($errors->has('email_exists'))
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">
-                    <strong>Let op!</strong> Er zijn fouten gevonden in het formulier.
+                    <strong>Let op!</strong> {{ $errors->first('email_exists') }}
+                </div>
+            @endif
+
+            @if ($errors->has('mobile_exists'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">
+                    <strong>Let op!</strong> {{ $errors->first('mobile_exists') }}
                 </div>
             @endif
 

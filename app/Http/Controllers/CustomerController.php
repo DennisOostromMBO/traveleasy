@@ -61,21 +61,97 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'first_name' => 'required|string|max:255',
-            'middle_name' => 'nullable|string|max:255',
-            'last_name' => 'required|string|max:255',
-            'date_of_birth' => 'required|date',
-            'passport_details' => 'required|string|max:255',
-            'street_name' => 'required|string|max:255',
-            'house_number' => 'required|string|max:10',
-            'addition' => 'nullable|string|max:10',
-            'postal_code' => 'required|string|max:10',
-            'city' => 'required|string|max:255',
-            'mobile' => 'required|string|max:20',
-            'email' => 'required|email|max:255'
+            'first_name' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',
+            'middle_name' => 'nullable|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',
+            'last_name' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',
+            'date_of_birth' => 'required|date|after_or_equal:1900-01-01|before:today',
+            'passport_details' => 'nullable|string|max:255',
+            'street_name' => 'required|string|max:255|regex:/^[^\d]+$/',
+            'house_number' => 'required|regex:/^\d+$/|digits_between:1,4',
+            'addition' => 'nullable|string|max:8',
+            'postal_code' => 'required|regex:/^[0-9]{4}[A-Z]{2}$/',
+            'city' => 'required|string|max:255|regex:/^[^\d]+$/',
+            'mobile' => 'required|regex:/^06\d{8}$/',
+            'email' => 'required|email|max:255|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/|not_regex:/xn--/'
+        ], [
+            // Naam validatie
+            'first_name.required' => 'Voornaam is verplicht.',
+            'first_name.max' => 'Voornaam is te lang.',
+            'first_name.regex' => 'Voornaam is ongeldig.',
+
+            'middle_name.max' => 'Tussenvoegsel is te lang.',
+            'middle_name.regex' => 'Tussenvoegsel is ongeldig.',
+
+            'last_name.required' => 'Achternaam is verplicht.',
+            'last_name.max' => 'Achternaam is te lang.',
+            'last_name.regex' => 'Achternaam is ongeldig.',
+
+            // Geboortedatum validatie
+            'date_of_birth.required' => 'Geboortedatum is verplicht.',
+            'date_of_birth.date' => 'Geboortedatum is geen geldige datum.',
+            'date_of_birth.after_or_equal' => 'Geboortedatum is niet geldig.',
+            'date_of_birth.before' => 'Geboortedatum is niet geldig.',
+
+            // Paspoort validatie
+            'passport_details.max' => 'Paspoort details zijn te lang.',
+
+            // Adres validatie
+            'street_name.required' => 'Straatnaam is verplicht.',
+            'street_name.max' => 'Straatnaam is te lang.',
+            'street_name.regex' => 'Straatnaam is ongeldig.',
+
+            'house_number.required' => 'Huisnummer is verplicht.',
+            'house_number.regex' => 'Huisnummer mag alleen cijfers bevatten.',
+            'house_number.digits_between' => 'Huisnummer is ongeldig.',
+
+            'addition.max' => 'Toevoeging is niet geldig.',
+
+            'postal_code.required' => 'Postcode is verplicht.',
+            'postal_code.regex' => 'Postcode is ongeldig.',
+
+            'city.required' => 'Plaats is verplicht.',
+            'city.max' => 'Plaats is te lang.',
+            'city.regex' => 'Plaats is ongeldig.',
+
+            // Contact validatie
+            'mobile.required' => 'Mobielnummer is verplicht.',
+            'mobile.regex' => 'Mobielnummer is ongeldig.',
+
+            'email.required' => 'E-mailadres is verplicht.',
+            'email.email' => 'E-mailadres is ongeldig.',
+            'email.max' => 'E-mailadres is te lang.',
+            'email.regex' => 'E-mailadres is ongeldig.',
+            'email.not_regex' => 'E-mailadres is ongeldig.'
         ]);
 
         try {
+            // Check voor dubbele email
+            $emailExists = DB::table('contacts')
+                ->join('customers', 'contacts.customer_id', '=', 'customers.id')
+                ->where('contacts.email', $request->email)
+                ->where('customers.persons_id', '!=', $id)
+                ->exists();
+
+            if ($emailExists) {
+                return back()->withInput()->withErrors([
+                    'email_exists' => 'Dit e-mailadres is al in gebruik door een andere klant!'
+                ]);
+            }
+
+            // Check voor dubbel mobiel nummer
+            $mobileExists = DB::table('contacts')
+                ->join('customers', 'contacts.customer_id', '=', 'customers.id')
+                ->where('contacts.mobile', $request->mobile)
+                ->where('customers.persons_id', '!=', $id)
+                ->exists();
+
+            if ($mobileExists) {
+                return back()->withInput()->withErrors([
+                    'mobile_exists' => 'Dit mobiele nummer is al in gebruik door een andere klant!'
+                ]);
+            }
+
+            // Als beide checks OK zijn, update de klant
             DB::select('CALL spUpdateCustomer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                 $id,
                 $request->first_name,

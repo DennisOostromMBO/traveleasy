@@ -46,4 +46,57 @@ class CustomerController extends Controller
 
         return view('customers.index', ['customers' => $paginatedItems, 'search' => $search, 'tableEmpty' => false]);
     }
+
+    public function edit($id)
+    {
+        $customer = collect(DB::select('CALL spGetCustomerById(?)', [$id]))->first();
+        
+        if (!$customer) {
+            return redirect()->route('customers.index')->with('error', 'Klant niet gevonden.');
+        }
+
+        return view('customers.edit', compact('customer'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'first_name' => 'required|string|max:255',
+            'middle_name' => 'nullable|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'date_of_birth' => 'required|date',
+            'passport_details' => 'required|string|max:255',
+            'street_name' => 'required|string|max:255',
+            'house_number' => 'required|string|max:10',
+            'addition' => 'nullable|string|max:10',
+            'postal_code' => 'required|string|max:10',
+            'city' => 'required|string|max:255',
+            'mobile' => 'required|string|max:20',
+            'email' => 'required|email|max:255'
+        ]);
+
+        try {
+            DB::select('CALL spUpdateCustomer(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+                $id,
+                $request->first_name,
+                $request->middle_name,
+                $request->last_name,
+                $request->date_of_birth,
+                $request->passport_details,
+                $request->street_name,
+                $request->house_number,
+                $request->addition,
+                $request->postal_code,
+                $request->city,
+                $request->mobile,
+                $request->email
+            ]);
+
+            return redirect()->route('customers.index')
+                           ->with('success', 'Klantgegevens succesvol bijgewerkt.');
+        } catch (\Exception $e) {
+            return back()->withInput()
+                        ->with('error', 'Er is een fout opgetreden bij het bijwerken van de klantgegevens.');
+        }
+    }
 }

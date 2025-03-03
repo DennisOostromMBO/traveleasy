@@ -20,7 +20,15 @@
             <a href="{{ url('/') }}" class="text-blue-500 hover:underline">Terug naar de homepage</a>
         </div>
 
-        <h1 class="text-2xl font-bold mb-4 text-center sm:text-left">Klanten</h1>
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+            <h1 class="text-2xl font-bold">Klanten</h1>
+            <a href="{{ route('customers.create') }}" class="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 inline-flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+                </svg>
+                Nieuwe Klant
+            </a>
+        </div>
 
         <!-- Search Form -->
         <form method="GET" action="{{ url('/customers') }}" class="mb-4">
@@ -51,6 +59,7 @@
                             <th class="py-2 px-3 border-b text-left font-semibold">Email</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Mobiel</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Relatienummer</th>
+                            <th class="py-2 px-3 border-b text-left font-semibold">Acties</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -87,6 +96,12 @@
                                     </div>
                                 </td>
                                 <td class="py-2 px-3 border-b">{{ $customer->relation_number }}</td>
+                                <td class="py-2 px-3 border-b">
+                                    <a href="{{ route('customers.edit', $customer->person_id) }}" 
+                                       class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">
+                                        Bewerken
+                                    </a>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -144,6 +159,12 @@
                         <div class="mb-1">
                             <span class="font-semibold">Relatienummer:</span>
                             <span>{{ $customer->relation_number }}</span>
+                        </div>
+                        <div class="mt-3 flex justify-end">
+                            <a href="{{ route('customers.edit', $customer->person_id) }}" 
+                               class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-sm">
+                                Bewerken
+                            </a>
                         </div>
                     </div>
                 @endforeach

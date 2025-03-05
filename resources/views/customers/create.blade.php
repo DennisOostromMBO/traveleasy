@@ -27,42 +27,69 @@
         <form action="{{ route('customers.store') }}" method="POST">
             @csrf
 
+            @if ($errors->has('email_exists'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">
+                    <strong>Let op!</strong> {{ $errors->first('email_exists') }}
+                </div>
+            @endif
+
+            @if ($errors->has('mobile_exists'))
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">
+                    <strong>Let op!</strong> {{ $errors->first('mobile_exists') }}
+                </div>
+            @endif
+
             <!-- Persoonlijke Gegevens Sectie -->
             <div class="space-y-6 mb-8">
                 <h2 class="text-xl font-semibold text-gray-700">Persoonlijke Gegevens</h2>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="mb-4 input-container">
+                        @error('first_name')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Voornaam</label>
-                        <input type="text" name="first_name" value="{{ old('first_name') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                        <input type="text" id="first_name" name="first_name" value="{{ old('first_name') }}" 
+                               class="mt-1 block w-full p-3 border @error('first_name') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="Jan">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('middle_name')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Tussenvoegsel</label>
                         <input type="text" name="middle_name" value="{{ old('middle_name') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('middle_name') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="van der">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('last_name')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Achternaam</label>
                         <input type="text" name="last_name" value="{{ old('last_name') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('last_name') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="Berg">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('date_of_birth')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Geboortedatum</label>
                         <input type="date" name="date_of_birth" value="{{ old('date_of_birth') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                               class="mt-1 block w-full p-3 border @error('date_of_birth') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('passport_details')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Paspoort Details</label>
                         <input type="text" name="passport_details" value="{{ old('passport_details') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('passport_details') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="NW2XX3B4">
                     </div>
                 </div>
@@ -74,51 +101,72 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="mb-4 input-container">
+                        @error('street_name')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Straatnaam</label>
                         <input type="text" name="street_name" value="{{ old('street_name') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('street_name') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="Hoofdstraat">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('house_number')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Huisnummer</label>
                         <input type="text" name="house_number" value="{{ old('house_number') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('house_number') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="42">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('addition')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Toevoeging</label>
                         <input type="text" name="addition" value="{{ old('addition') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('addition') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="A">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('postal_code')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Postcode</label>
                         <input type="text" name="postal_code" value="{{ old('postal_code') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('postal_code') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="1234AB">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('city')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Plaats</label>
                         <input type="text" name="city" value="{{ old('city') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('city') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="Amsterdam">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('mobile')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Mobiel</label>
                         <input type="tel" name="mobile" value="{{ old('mobile') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('mobile') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="0612345678">
                     </div>
 
                     <div class="mb-4 input-container">
+                        @error('email')
+                            <div class="error-message">{{ $message }}</div>
+                        @enderror
                         <label class="block text-sm font-medium text-gray-700">Email</label>
                         <input type="email" name="email" value="{{ old('email') }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md"
+                               class="mt-1 block w-full p-3 border @error('email') border-red-500 @else border-gray-300 @enderror rounded-md"
                                placeholder="jan.berg@email.nl">
                     </div>
                 </div>

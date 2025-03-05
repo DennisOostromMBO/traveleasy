@@ -49,45 +49,60 @@
                         @error('first_name')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Voornaam</label>
-                        <input type="text" name="first_name" value="{{ old('first_name', $customer->first_name) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="first_name" class="block text-sm font-medium text-gray-700">Voornaam</label>
+                        <input type="text" 
+                               id="first_name" 
+                               name="first_name" 
+                               value="{{ old('first_name', $customer->first_name) }}" 
+                               class="mt-1 block w-full p-3 border @error('first_name') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('middle_name')
-                            <div the="error-message">{{ $message }}</div>
+                            <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Tussenvoegsel</label>
-                        <input type="text" name="middle_name" value="{{ old('middle_name', $customer->middle_name) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="middle_name" class="block text-sm font-medium text-gray-700">Tussenvoegsel</label>
+                        <input type="text" 
+                               id="middle_name" 
+                               name="middle_name" 
+                               value="{{ old('middle_name', $customer->middle_name) }}" 
+                               class="mt-1 block w-full p-3 border @error('middle_name') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('last_name')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Achternaam</label>
-                        <input type="text" name="last_name" value="{{ old('last_name', $customer->last_name) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="last_name" class="block text-sm font-medium text-gray-700">Achternaam</label>
+                        <input type="text" 
+                               id="last_name" 
+                               name="last_name" 
+                               value="{{ old('last_name', $customer->last_name) }}" 
+                               class="mt-1 block w-full p-3 border @error('last_name') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('date_of_birth')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Geboortedatum</label>
-                        <input type="date" name="date_of_birth" value="{{ old('date_of_birth', $customer->date_of_birth) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="date_of_birth" class="block text-sm font-medium text-gray-700">Geboortedatum</label>
+                        <input type="date" 
+                               id="date_of_birth" 
+                               name="date_of_birth" 
+                               value="{{ old('date_of_birth', $customer->date_of_birth) }}" 
+                               class="mt-1 block w-full p-3 border @error('date_of_birth') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('passport_details')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Paspoort Details</label>
-                        <input type="text" name="passport_details" value="{{ old('passport_details', $customer->passport_details) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="passport_details" class="block text-sm font-medium text-gray-700">Paspoort Details</label>
+                        <input type="text" 
+                               id="passport_details" 
+                               name="passport_details" 
+                               value="{{ old('passport_details', $customer->passport_details) }}" 
+                               class="mt-1 block w-full p-3 border @error('passport_details') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
                 </div>
             </div>
@@ -101,63 +116,84 @@
                         @error('street_name')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Straatnaam</label>
-                        <input type="text" name="street_name" value="{{ old('street_name', $customer->street_name) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="street_name" class="block text-sm font-medium text-gray-700">Straatnaam</label>
+                        <input type="text" 
+                               id="street_name" 
+                               name="street_name" 
+                               value="{{ old('street_name', $customer->street_name) }}" 
+                               class="mt-1 block w-full p-3 border @error('street_name') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('house_number')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Huisnummer</label>
-                        <input type="text" name="house_number" value="{{ old('house_number', $customer->house_number) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="house_number" class="block text-sm font-medium text-gray-700">Huisnummer</label>
+                        <input type="text" 
+                               id="house_number" 
+                               name="house_number" 
+                               value="{{ old('house_number', $customer->house_number) }}" 
+                               class="mt-1 block w-full p-3 border @error('house_number') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('addition')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Toevoeging</label>
-                        <input type="text" name="addition" value="{{ old('addition', $customer->addition) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="addition" class="block text-sm font-medium text-gray-700">Toevoeging</label>
+                        <input type="text" 
+                               id="addition" 
+                               name="addition" 
+                               value="{{ old('addition', $customer->addition) }}" 
+                               class="mt-1 block w-full p-3 border @error('addition') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('postal_code')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Postcode</label>
-                        <input type="text" name="postal_code" value="{{ old('postal_code', $customer->postal_code) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="postal_code" class="block text-sm font-medium text-gray-700">Postcode</label>
+                        <input type="text" 
+                               id="postal_code" 
+                               name="postal_code" 
+                               value="{{ old('postal_code', $customer->postal_code) }}" 
+                               class="mt-1 block w-full p-3 border @error('postal_code') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('city')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Plaats</label>
-                        <input type="text" name="city" value="{{ old('city', $customer->city) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="city" class="block text-sm font-medium text-gray-700">Plaats</label>
+                        <input type="text" 
+                               id="city" 
+                               name="city" 
+                               value="{{ old('city', $customer->city) }}" 
+                               class="mt-1 block w-full p-3 border @error('city') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('mobile')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Mobiel</label>
-                        <input type="tel" name="mobile" value="{{ old('mobile', $customer->mobile) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="mobile" class="block text-sm font-medium text-gray-700">Mobiel</label>
+                        <input type="tel" 
+                               id="mobile" 
+                               name="mobile" 
+                               value="{{ old('mobile', $customer->mobile) }}" 
+                               class="mt-1 block w-full p-3 border @error('mobile') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
 
                     <div class="mb-4 input-container">
                         @error('email')
                             <div class="error-message">{{ $message }}</div>
                         @enderror
-                        <label class="block text-sm font-medium text-gray-700">Email</label>
-                        <input type="email" name="email" value="{{ old('email', $customer->email) }}" 
-                               class="mt-1 block w-full p-3 border border-gray-300 rounded-md">
+                        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                        <input type="email" 
+                               id="email" 
+                               name="email" 
+                               value="{{ old('email', $customer->email) }}" 
+                               class="mt-1 block w-full p-3 border @error('email') border-red-500 @else border-gray-300 @enderror rounded-md">
                     </div>
                 </div>
             </div>

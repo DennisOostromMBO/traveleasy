@@ -16,6 +16,7 @@ class AccountOverviewController extends Controller
     public function index(Request $request)
     {
         $sortRole = $request->input('sort_role', '');
+        $searchEmail = $request->input('search', '');
 
         // Call the stored procedure to get users
         $users = DB::select('CALL spGetAllUsers()');
@@ -27,6 +28,13 @@ class AccountOverviewController extends Controller
         if ($sortRole) {
             $users = collect($users)->filter(function ($user) use ($sortRole) {
                 return $user->role_name == $sortRole;
+            })->values()->all();
+        }
+
+        // Filter users by email if a search term is provided
+        if ($searchEmail) {
+            $users = collect($users)->filter(function ($user) use ($searchEmail) {
+                return stripos($user->email, $searchEmail) !== false;
             })->values()->all();
         }
 

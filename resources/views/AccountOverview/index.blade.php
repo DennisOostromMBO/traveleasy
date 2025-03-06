@@ -1,4 +1,3 @@
-<!-- filepath: /C:/Users/danie/OneDrive/Documenten/school mappen/Leerjaar 2/Project/Periode 3/traveleasy/resources/views/AccountOverview/index.blade.php -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,10 +17,10 @@
         <form method="GET" action="{{ url('/account-overview') }}" class="mb-6 flex items-center justify-between">
             <div class="flex items-center">
                 <input type="text" name="search" value="{{ request('search') }}" placeholder="Search by email" class="border border-gray-300 p-2 rounded-lg w-full">
-                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-800">Zoek</button>
+                <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg ml-2 hover:bg-blue-800">Search</button>
             </div>
             <div class="flex items-center">
-                <label for="sort_role" class="mr-2">Sorteer door Rol:</label>
+                <label for="sort_role" class="mr-2">Sort by Role:</label>
                 <select name="sort_role" id="sort_role" class="border border-gray-300 p-2 rounded-lg">
                     <option value="">Select</option>
                     @foreach ($roles as $role)
@@ -33,7 +32,7 @@
         </form>
 
         <!-- User List -->
-        @if ($users->isEmpty())
+        @if ($paginatedUsers->isEmpty())
             <h3 class="text-red-500 text-center">Er zijn helaas geen gebruiker accounts.</h3>
         @else
             <div class="hidden md:block overflow-x-auto">
@@ -41,19 +40,28 @@
                 <table class="min-w-full bg-white border border-gray-200 text-sm">
                     <thead class="bg-blue-600 text-white">
                         <tr>
-                            <th class="py-3 px-4 border-b text-left font-semibold">Volledige Naam</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Full Name</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Email</th>
-                            <th class="py-3 px-4 border-b text-left font-semibold">Rol</th>
-                            <th class="py-3 px-4 border-b text-left font-semibold">Actief</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Role</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Active</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Actions</th>
                         </tr>
                     </thead>
                     <tbody class="text-gray-700">
-                        @foreach ($users as $user)
+                        @foreach ($paginatedUsers as $user)
                             <tr class="hover:bg-gray-50">
                                 <td class="py-3 px-4 border-b">{{ $user->full_name }}</td>
                                 <td class="py-3 px-4 border-b">{{ $user->email }}</td>
-                                <td class="py-3 px-4 border-b">{{ $user->role->name }}</td>
-                                <td class="py-3 px-4 border-b">{{ $user->is_active ? 'Ja' : 'Nee' }}</td>
+                                <td class="py-3 px-4 border-b">{{ $user->role_name }}</td>
+                                <td class="py-3 px-4 border-b">{{ $user->is_active ? 'Yes' : 'No' }}</td>
+                                <td class="py-3 px-4 border-b">
+                                    <a href="{{ route('account.overview.edit', $user->user_id) }}" class="text-blue-600 hover:text-blue-800">Edit</a>
+                                    <form action="{{ route('account.overview.destroy', $user->user_id) }}" method="POST" class="inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="text-red-600 hover:text-red-800 ml-2">Delete</button>
+                                    </form>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -62,10 +70,10 @@
 
             <!-- Card view for small screens -->
             <div class="block md:hidden grid gap-4">
-                @foreach ($users as $user)
+                @foreach ($paginatedUsers as $user)
                     <div class="bg-gray-50 p-4 rounded-lg shadow-md border border-gray-200">
                         <div class="mb-2">
-                            <span class="font-semibold">Volledige Naam:</span>
+                            <span class="font-semibold">Full Name:</span>
                             <span>{{ $user->full_name }}</span>
                         </div>
                         <div class="mb-2">
@@ -73,12 +81,20 @@
                             <span>{{ $user->email }}</span>
                         </div>
                         <div class="mb-2">
-                            <span class="font-semibold">Rol:</span>
-                            <span>{{ $user->role->name }}</span>
+                            <span class="font-semibold">Role:</span>
+                            <span>{{ $user->role_name }}</span>
                         </div>
                         <div class="mb-2">
-                            <span class="font-semibold">Actief:</span>
-                            <span>{{ $user->is_active ? 'Ja' : 'Nee' }}</span>
+                            <span class="font-semibold">Active:</span>
+                            <span>{{ $user->is_active ? 'Yes' : 'No' }}</span>
+                        </div>
+                        <div class="flex justify-end">
+                            <a href="{{ route('account.overview.edit', $user->user_id) }}" class="text-blue-600 hover:text-blue-800">Edit</a>
+                            <form action="{{ route('account.overview.destroy', $user->user_id) }}" method="POST" class="inline-block ml-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-red-600 hover:text-red-800">Delete</button>
+                            </form>
                         </div>
                     </div>
                 @endforeach
@@ -86,7 +102,7 @@
 
             <!-- Pagination Links -->
             <div class="mt-6">
-                {{ $users->appends(request()->query())->links() }}
+                {{ $paginatedUsers->appends(request()->query())->links() }}
             </div>
         @endif
 

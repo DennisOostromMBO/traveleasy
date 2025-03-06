@@ -31,6 +31,7 @@ return new class extends Migration
                     b.special_requests,
                     b.is_active,
                     b.note,
+                    b.sale,
                     b.created_at,
                     b.updated_at
                 FROM
@@ -67,6 +68,7 @@ return new class extends Migration
                     b.special_requests,
                     b.is_active,
                     b.note,
+                    b.sale,
                     b.created_at,
                     b.updated_at
                 FROM

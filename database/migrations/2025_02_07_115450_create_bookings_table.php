@@ -27,6 +27,7 @@ return new class extends Migration
             $table->text('special_requests')->nullable();
             $table->boolean('is_active');
             $table->text('note')->nullable();
+            $table->integer('sale')->nullable()->default(0); // Make the sale column nullable
             $table->timestamps();
         });
     }

@@ -108,4 +108,11 @@ class BookingController extends Controller
 
         return redirect()->route('bookings.index')->with('success', 'Booking deleted successfully.');
     }
+
+    public function sales(Request $request)
+    {
+        $bookings = Booking::where('sale', '>', 0)->paginate(6);
+
+        return view('bookings.sales', compact('bookings'));
+    }
 }

@@ -64,21 +64,27 @@ class CustomerController extends Controller
     {
         Log::info('Starting store request', ['data' => $request->all()]);
 
-        // Validatie buiten try-catch zodat Laravel de errors automatisch kan doorsturen
         $validated = $request->validate([
             'first_name' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',
             'middle_name' => 'nullable|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',
             'last_name' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',
             'date_of_birth' => 'required|date|after_or_equal:1900-01-01|before:today',
             'passport_details' => 'nullable|string|max:255',
-            'street_name' => 'required|string|max:255|regex:/^[^\d]+$/',
+            'street_name' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',  // Updated regex
             'house_number' => 'required|regex:/^\d+$/|digits_between:1,4',
             'addition' => 'nullable|string|max:8',
             'postal_code' => 'required|regex:/^[0-9]{4}[A-Z]{2}$/',
-            'city' => 'required|string|max:255|regex:/^[^\d]+$/',
+            'city' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',  // Updated regex
             'mobile' => 'required|regex:/^06\d{8}$/',
             'email' => 'required|email|max:255|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/|not_regex:/xn--/'
         ], [
+            // Algemene validatie messages
+            'required' => ':attribute is verplicht.',
+            'max' => ':attribute is te lang.',
+            'regex' => ':attribute is ongeldig.',
+            'email' => ':attribute is ongeldig.',
+            'digits_between' => ':attribute is ongeldig.',
+
             // Naam validatie
             'first_name.required' => 'Voornaam is verplicht.',
             'first_name.max' => 'Voornaam is te lang.',
@@ -93,9 +99,9 @@ class CustomerController extends Controller
 
             // Geboortedatum validatie
             'date_of_birth.required' => 'Geboortedatum is verplicht.',
-            'date_of_birth.date' => 'Geboortedatum is geen geldige datum.',
-            'date_of_birth.after_or_equal' => 'Geboortedatum is niet geldig.',
-            'date_of_birth.before' => 'Geboortedatum is niet geldig.',
+            'date_of_birth.date' => 'Geboortedatum is ongeldig.',
+            'date_of_birth.after_or_equal' => 'Geboortedatum is ongeldig.',
+            'date_of_birth.before' => 'Geboortedatum is ongeldig.',
 
             // Paspoort validatie
             'passport_details.max' => 'Paspoort details zijn te lang.',
@@ -106,10 +112,10 @@ class CustomerController extends Controller
             'street_name.regex' => 'Straatnaam is ongeldig.',
 
             'house_number.required' => 'Huisnummer is verplicht.',
-            'house_number.regex' => 'Huisnummer mag alleen cijfers bevatten.',
+            'house_number.regex' => 'Huisnummer is ongeldig.',
             'house_number.digits_between' => 'Huisnummer is ongeldig.',
 
-            'addition.max' => 'Toevoeging is niet geldig.',
+            'addition.max' => 'Toevoeging is ongeldig.',
 
             'postal_code.required' => 'Postcode is verplicht.',
             'postal_code.regex' => 'Postcode is ongeldig.',
@@ -214,14 +220,21 @@ class CustomerController extends Controller
             'last_name' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',
             'date_of_birth' => 'required|date|after_or_equal:1900-01-01|before:today',
             'passport_details' => 'nullable|string|max:255',
-            'street_name' => 'required|string|max:255|regex:/^[^\d]+$/',
+            'street_name' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',  // Updated regex
             'house_number' => 'required|regex:/^\d+$/|digits_between:1,4',
             'addition' => 'nullable|string|max:8',
             'postal_code' => 'required|regex:/^[0-9]{4}[A-Z]{2}$/',
-            'city' => 'required|string|max:255|regex:/^[^\d]+$/',
+            'city' => 'required|string|max:255|regex:/^[a-zA-ZÀ-ÿ\- ]+$/u',  // Updated regex
             'mobile' => 'required|regex:/^06\d{8}$/',
             'email' => 'required|email|max:255|regex:/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/|not_regex:/xn--/'
         ], [
+            // Algemene validatie messages
+            'required' => ':attribute is verplicht.',
+            'max' => ':attribute is te lang.',
+            'regex' => ':attribute is ongeldig.',
+            'email' => ':attribute is ongeldig.',
+            'digits_between' => ':attribute is ongeldig.',
+
             // Naam validatie
             'first_name.required' => 'Voornaam is verplicht.',
             'first_name.max' => 'Voornaam is te lang.',
@@ -236,9 +249,9 @@ class CustomerController extends Controller
 
             // Geboortedatum validatie
             'date_of_birth.required' => 'Geboortedatum is verplicht.',
-            'date_of_birth.date' => 'Geboortedatum is geen geldige datum.',
-            'date_of_birth.after_or_equal' => 'Geboortedatum is niet geldig.',
-            'date_of_birth.before' => 'Geboortedatum is niet geldig.',
+            'date_of_birth.date' => 'Geboortedatum is ongeldig.',
+            'date_of_birth.after_or_equal' => 'Geboortedatum is ongeldig.',
+            'date_of_birth.before' => 'Geboortedatum is ongeldig.',
 
             // Paspoort validatie
             'passport_details.max' => 'Paspoort details zijn te lang.',
@@ -249,10 +262,10 @@ class CustomerController extends Controller
             'street_name.regex' => 'Straatnaam is ongeldig.',
 
             'house_number.required' => 'Huisnummer is verplicht.',
-            'house_number.regex' => 'Huisnummer mag alleen cijfers bevatten.',
+            'house_number.regex' => 'Huisnummer is ongeldig.',
             'house_number.digits_between' => 'Huisnummer is ongeldig.',
 
-            'addition.max' => 'Toevoeging is niet geldig.',
+            'addition.max' => 'Toevoeging is ongeldig.',
 
             'postal_code.required' => 'Postcode is verplicht.',
             'postal_code.regex' => 'Postcode is ongeldig.',

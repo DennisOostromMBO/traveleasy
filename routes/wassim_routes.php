@@ -26,3 +26,4 @@ Route::delete('/bookings/{id}', [BookingController::class, 'destroy'])->name('bo
 Route::get('/manager/bookings', [ManagerController::class, 'bookings'])->name('manager.bookings');
 
 
+Route::get('/bookings/purchase/{id}', [BookingController::class, 'purchase'])->name('bookings.purchase');

@@ -16,9 +16,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('person_id')->nullable()->constrained('persons')->onDelete('cascade');
             $table->foreignId('role_id')->constrained('roles')->onDelete('cascade');
-            $table->string('first_name');
-            $table->string('middle_name')->nullable();
-            $table->string('last_name');
             $table->string('email', 191)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
@@ -29,7 +26,6 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
             $table->string('comments')->nullable();
-            $table->string('full_name')->storedAs("CONCAT(first_name, ' ', IFNULL(middle_name, ''), ' ', last_name)");
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

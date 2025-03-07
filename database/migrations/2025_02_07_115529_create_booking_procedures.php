@@ -18,7 +18,10 @@ return new class extends Migration
                     b.id AS booking_id,
                     c.id AS customer_id,
                     CONCAT(p.first_name, " ", p.last_name) AS customer_name,
+                    d1.country AS departure_country,
+                    d2.country AS destination_country,
                     t.id AS travel_id,
+                    t.departure_date,
                     b.seat_number,
                     b.purchase_date,
                     b.purchase_time,
@@ -28,6 +31,7 @@ return new class extends Migration
                     b.special_requests,
                     b.is_active,
                     b.note,
+                    b.sale,
                     b.created_at,
                     b.updated_at
                 FROM
@@ -37,7 +41,11 @@ return new class extends Migration
                 JOIN
                     travels t ON b.travel_id = t.id
                 JOIN
-                    persons p ON c.persons_id = p.id;
+                    persons p ON c.persons_id = p.id
+                JOIN
+                    departures d1 ON t.departure_id = d1.id
+                JOIN
+                    destinations d2 ON t.destination_id = d2.id;
             END
         ');
 
@@ -50,6 +58,7 @@ return new class extends Migration
                     c.id AS customer_id,
                     CONCAT(p.first_name, " ", p.last_name) AS customer_name,
                     t.id AS travel_id,
+                    t.departure_date,
                     b.seat_number,
                     b.purchase_date,
                     b.purchase_time,
@@ -59,6 +68,7 @@ return new class extends Migration
                     b.special_requests,
                     b.is_active,
                     b.note,
+                    b.sale,
                     b.created_at,
                     b.updated_at
                 FROM

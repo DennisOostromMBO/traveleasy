@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\ManagerController;
 
 Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index');
 Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
@@ -21,3 +22,7 @@ Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings
 Route::get('/bookings/{id}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
 Route::patch('/bookings/{id}', [BookingController::class, 'update'])->name('bookings.update');
 Route::delete('/bookings/{id}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+
+Route::get('/manager/bookings', [ManagerController::class, 'bookings'])->name('manager.bookings');
+
+

@@ -27,6 +27,6 @@ Route::get('/travels', [TravelsController::class, 'index']); // Nieuwe route voo
 
 require __DIR__.'/wassim_routes.php';
 require __DIR__.'/auth.php';
-require __DIR__.'/accountoverzicht.php';
+require __DIR__.'/daniel_routes.php';
 require __DIR__.'/customers.php';
 

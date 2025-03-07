@@ -11,17 +11,10 @@
         <h1 class="text-3xl font-bold mb-6">Boeking Details</h1>
         <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
             <table class="min-w-full bg-white">
-                <tr>
-                    <th class="py-3 px-4 text-left">Boeking ID</th>
-                    <td class="py-3 px-4">{{ $booking->id }}</td>
-                </tr>
-                <tr>
-                    <th class="py-3 px-4 text-left">Klantnaam</th>
-                    <td class="py-3 px-4">{{ $booking->customer->person->first_name }} {{ $booking->customer->person->last_name }}</td>
-                </tr>
+
                 <tr>
                     <th class="py-3 px-4 text-left">Reis</th>
-                    <td class="py-3 px-4">{{ $booking->travel_id }}</td>
+                    <td class="py-3 px-4">{{ $booking->departure_country}} - {{$booking->destination_country}}</td>
                 </tr>
                 <tr>
                     <th class="py-3 px-4 text-left">Stoelnummer</th>
@@ -45,7 +38,9 @@
                 </tr>
             </table>
             <div class="mt-6">
-                <a href="{{ route('bookings.edit', $booking->id) }}" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800">Bewerken</a>
+                <a href="{{ route('bookings.purchase', $booking->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                    Kopen
+                </a>
             </div>
         </div>
     </div>

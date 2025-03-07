@@ -26,5 +26,3 @@ Route::get('/bookings/purchase/{id}', [BookingController::class, 'purchase'])->n
 
 Route::get('/manager/bookings', [ManagerController::class, 'bookings'])->name('manager.bookings');
 
-
->>>>>>>>> Temporary merge branch 2

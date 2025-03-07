@@ -22,8 +22,9 @@ Route::get('/bookings/{id}', [BookingController::class, 'show'])->name('bookings
 Route::get('/bookings/{id}/edit', [BookingController::class, 'edit'])->name('bookings.edit');
 Route::patch('/bookings/{id}', [BookingController::class, 'update'])->name('bookings.update');
 Route::delete('/bookings/{id}', [BookingController::class, 'destroy'])->name('bookings.destroy');
+Route::get('/bookings/purchase/{id}', [BookingController::class, 'purchase'])->name('bookings.purchase');
 
 Route::get('/manager/bookings', [ManagerController::class, 'bookings'])->name('manager.bookings');
 
 
-Route::get('/bookings/purchase/{id}', [BookingController::class, 'purchase'])->name('bookings.purchase');
+>>>>>>>>> Temporary merge branch 2

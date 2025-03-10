@@ -8,6 +8,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-7xl">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-bold">Reizen</h1>
@@ -33,6 +34,7 @@
                         <th class="py-3 px-4 border-b">Aankomstdatum</th>
                         <th class="py-3 px-4 border-b">Aankomsttijd</th>
                         <th class="py-3 px-4 border-b">Status</th>
+                        <th class="py-3 px-4 border-b">Acties</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -47,6 +49,10 @@
                             <td class="py-3 px-4 border-b">{{ $travel->arrival_date }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->arrival_time }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->travel_status }}</td>
+                            <td class="py-3 px-4 border-b">
+                                <a href="{{ route('travels.edit', $travel->travel_id) }}" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 mr-2">Bewerken</a>
+                                <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Verwijderen</button>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

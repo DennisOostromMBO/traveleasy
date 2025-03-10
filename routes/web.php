@@ -26,6 +26,9 @@ Route::get('/communications', [CommunicationController::class, 'index']);
 Route::get('/travels', [TravelsController::class, 'index'])->name('travels.index'); // Nieuwe route voor reizenoverzicht
 Route::get('/travels/create', [TravelsController::class, 'create'])->name('travels.create');
 Route::post('/travels', [TravelsController::class, 'store'])->name('travels.store');
+Route::get('/travels/{id}/edit', [TravelsController::class, 'edit'])->name('travels.edit');
+Route::put('/travels/{id}', [TravelsController::class, 'update'])->name('travels.update');
+
 require __DIR__.'/wassim_routes.php';
 require __DIR__.'/auth.php';
 require __DIR__.'/daniel_routes.php';

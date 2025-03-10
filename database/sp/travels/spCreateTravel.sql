@@ -1,5 +1,3 @@
-DELIMITER //
-
 CREATE PROCEDURE spCreateTravel(
     IN p_employee_id INT,
     IN p_departure_id INT,
@@ -22,6 +20,4 @@ BEGIN
         p_departure_date, p_departure_time, p_arrival_date, p_arrival_time, 
         p_travel_status, p_is_active, NOW(), NOW()
     );
-END //
-
-DELIMITER ;
+END;

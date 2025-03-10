@@ -23,7 +23,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/communications', [CommunicationController::class, 'index']);
-Route::get('/travels', [TravelsController::class, 'index']); // Nieuwe route voor reizenoverzicht
+Route::get('/travels', [TravelsController::class, 'index'])->name('travels.index'); // Nieuwe route voor reizenoverzicht
 Route::get('/travels/create', [TravelsController::class, 'create'])->name('travels.create');
 Route::post('/travels', [TravelsController::class, 'store'])->name('travels.store');
 require __DIR__.'/wassim_routes.php';

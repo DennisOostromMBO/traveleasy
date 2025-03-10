@@ -9,7 +9,17 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-7xl">
-        <h1 class="text-2xl font-bold mb-6 text-center sm:text-left">Reizen</h1>
+        <div class="flex justify-between items-center mb-6">
+            <h1 class="text-2xl font-bold">Reizen</h1>
+            <a href="{{ route('travels.create') }}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Nieuwe Reis</a>
+        </div>
+
+        @if(session('success'))
+            <div class="bg-green-500 text-white p-3 rounded-md mb-4 text-center">
+                {{ session('success') }}
+            </div>
+        @endif
+
         @if(count($travels) > 0)
             <table class="min-w-full bg-white border border-gray-200 text-sm">
                 <thead>

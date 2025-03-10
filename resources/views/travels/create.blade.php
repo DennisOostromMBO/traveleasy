@@ -7,22 +7,32 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
 
-@if(session('success'))
-    <div id="success-message" class="bg-green-500 text-white p-3 rounded-md mb-4 text-center">
-        {{ session('success') }}
-    </div>
-
-    <script>
-        setTimeout(function() {
-            document.getElementById('success-message').style.display = 'none';
-            window.location.href = "{{ route('travels.index') }}";
-        }, 5000);
-    </script>
-@endif
-
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-3xl">
         <h1 class="text-2xl font-bold mb-6 text-center">Nieuwe Reis Toevoegen</h1>
+
+        @if(session('success'))
+            <div class="bg-green-500 text-white p-3 rounded-md mb-4 text-center">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="bg-red-500 text-white p-3 rounded-md mb-4 text-center">
+                {{ session('error') }}
+            </div>
+        @endif
+
+        @if($errors->any())
+            <div class="bg-red-500 text-white p-3 rounded-md mb-4">
+                <ul>
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('travels.store') }}" method="POST">
             @csrf
             <div class="mb-4">

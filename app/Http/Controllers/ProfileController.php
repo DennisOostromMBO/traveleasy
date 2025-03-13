@@ -6,7 +6,9 @@ use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -17,24 +19,54 @@ class ProfileController extends Controller
     public function edit(Request $request): View
     {
         return view('profile.edit', [
-            'user' => $request->user(),
+            'user' => $request->user()->load('person'),
         ]);
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        try {
+            // Call the stored procedure to update the user profile
+            DB::statement('CALL spUpdateUserName(?, ?, ?, ?, ?)', [
+                Auth::id(),
+                $request->input('first_name'),
+                $request->input('middle_name'),
+                $request->input('last_name'),
+                $request->input('email'),
+            ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+            return redirect()->route('profile.edit')->with('status', 'profile-updated');
+        } catch (\Exception $e) {
+            return back()->withInput()
+                        ->with('error', 'Er is een fout opgetreden bij het bijwerken van de profielgegevens.');
+        }
+    }
+
+    /**
+     * Update the user's password.
+     */
+    public function updatePassword(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'current_password' => ['required', 'string'],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+
+        // Check if the current password is correct
+        if (!Hash::check($request->current_password, Auth::user()->password)) {
+            return back()->withErrors(['current_password' => __('The provided password does not match your current password.')]);
         }
 
-        $request->user()->save();
+        // Call the stored procedure to update the user password
+        DB::statement('CALL spUpdateUserPassword(?, ?)', [
+            Auth::id(),
+            Hash::make($request->password),
+        ]);
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return redirect()->route('profile.edit')->with('status', 'password-updated');
     }
 
     /**
@@ -42,19 +74,22 @@ class ProfileController extends Controller
      */
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
+        $request->validate([
+            'password' => ['required', 'string'],
         ]);
 
-        $user = $request->user();
+        // Check if the password is correct
+        if (!Hash::check($request->password, Auth::user()->password)) {
+            return back()->withErrors(['password' => __('The provided password does not match your current password.')]);
+        }
+
+        // Call the stored procedure to delete the user
+        DB::statement('CALL spDeleteUser(?)', [
+            Auth::id(),
+        ]);
 
         Auth::logout();
 
-        $user->delete();
-
-        $request->session()->invalidate();
-        $request->session()->regenerateToken();
-
-        return Redirect::to('/');
+        return redirect('/');
     }
 }

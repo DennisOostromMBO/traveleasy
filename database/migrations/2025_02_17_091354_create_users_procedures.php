@@ -15,6 +15,7 @@ return new class extends Migration
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllUsers');
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllRoles');
         DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateUser');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spCreateUser');
 
         // Create spGetAllUsers procedure
         $pathUsers = database_path('sp/users/spGetAllUsers.sql');
@@ -30,6 +31,11 @@ return new class extends Migration
         $pathUpdateUser = database_path('sp/users/spUpdateUser.sql');
         $sqlUpdateUser = File::get($pathUpdateUser);
         DB::unprepared($sqlUpdateUser);
+
+        // Create spCreateUser procedure
+        $pathCreateUser = database_path('sp/users/spCreateUser.sql');
+        $sqlCreateUser = File::get($pathCreateUser);
+        DB::unprepared($sqlCreateUser);
     }
 
     /**
@@ -41,5 +47,6 @@ return new class extends Migration
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllUsers');
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllRoles');
         DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateUser');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spCreateUser');
     }
 };

@@ -75,7 +75,7 @@
 
             <div class="mb-4">
                 <label class="block font-medium">Vertrektijd:</label>
-                <input type="time" name="departure_time" class="w-full p-2 border rounded" value="{{ $travel->departure_time }}" required>
+                <input type="time" name="departure_time" class="w-full p-2 border rounded" value="{{ \Carbon\Carbon::parse($travel->departure_time)->format('H:i') }}" required>
             </div>
 
             <div class="mb-4">
@@ -85,7 +85,7 @@
 
             <div class="mb-4">
                 <label class="block font-medium">Aankomsttijd:</label>
-                <input type="time" name="arrival_time" class="w-full p-2 border rounded" value="{{ $travel->arrival_time }}" required>
+                <input type="time" name="arrival_time" class="w-full p-2 border rounded" value="{{ \Carbon\Carbon::parse($travel->arrival_time)->format('H:i') }}" required>
             </div>
 
             <div class="mb-4">
@@ -99,6 +99,10 @@
 
             <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded">Opslaan</button>
         </form>
+
+        <div class="mt-4">
+            <a href="{{ route('travels.index') }}" class="w-full bg-gray-500 text-white p-3 rounded block text-center">Terug naar overzicht</a>
+        </div>
     </div>
 </body>
 </html>

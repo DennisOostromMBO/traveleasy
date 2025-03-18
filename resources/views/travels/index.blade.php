@@ -15,6 +15,21 @@
             <a href="{{ route('travels.create') }}" class="bg-green-500 text-white py-2 px-4 rounded hover:bg-green-600">Nieuwe Reis</a>
         </div>
 
+        <div class="mb-4">
+            <form method="GET" action="{{ route('travels.index') }}" class="flex items-center gap-4">
+                <select name="employee_id" class="p-2 border rounded">
+                    <option value="">-- Filter op medewerker --</option>
+                    @foreach($employees as $employee)
+                        <option value="{{ $employee->id }}" {{ $employeeId == $employee->id ? 'selected' : '' }}>
+                            {{ $employee->full_name }}
+                        </option>
+                    @endforeach
+                </select>
+                <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Filter</button>
+                <a href="{{ route('travels.index') }}" class="bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600">Reset</a>
+            </form>
+        </div>
+
         @if(session('success'))
             <div class="bg-green-500 text-white p-3 rounded-md mb-4 text-center">
                 {{ session('success') }}
@@ -49,10 +64,10 @@
                             <td class="py-3 px-4 border-b">{{ $travel->arrival_date }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->arrival_time }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->travel_status }}</td>
-                            <td class="py-3 px-4 border-b">
-                                <a href="{{ route('travels.edit', $travel->travel_id) }}" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600 mr-2">Bewerken</a>
+                            <td class="py-3 px-4 border-b flex flex-col gap-2"> 
+                                <a href="{{ route('travels.edit', $travel->travel_id) }}" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">Bewerken</a>
                                 <button class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Verwijderen</button>
-                            </td>
+                            </td>                            
                         </tr>
                     @endforeach
                 </tbody>

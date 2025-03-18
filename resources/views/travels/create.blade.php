@@ -98,6 +98,10 @@
 
             <button type="submit" class="w-full bg-blue-500 text-white p-3 rounded">Opslaan</button>
         </form>
+
+        <div class="mt-4">
+            <a href="{{ route('travels.index') }}" class="w-full bg-gray-500 text-white p-3 rounded block text-center">Terug naar overzicht</a>
+        </div>
     </div>
 </body>
 </html>

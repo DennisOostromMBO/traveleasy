@@ -9,10 +9,42 @@ use Carbon\Carbon;
 
 class TravelsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $travels = DB::select('CALL spGetAllTravels()');
-        return view('travels.index', ['travels' => $travels]);
+        $employeeId = $request->query('employee_id');
+
+        $employees = DB::table('employees')
+            ->join('persons', 'employees.person_id', '=', 'persons.id')
+            ->select('employees.id', DB::raw("CONCAT(persons.first_name, ' ', persons.last_name) AS full_name"))
+            ->get();
+
+        $travelsQuery = DB::table('travels')
+            ->join('employees', 'travels.employee_id', '=', 'employees.id')
+            ->join('persons', 'employees.person_id', '=', 'persons.id')
+            ->join('departures', 'travels.departure_id', '=', 'departures.id')
+            ->join('destinations', 'travels.destination_id', '=', 'destinations.id')
+            ->select(
+                'travels.id AS travel_id',
+                DB::raw("CONCAT(persons.first_name, ' ', persons.last_name) AS employee_name"),
+                'departures.country AS departure_country',
+                'departures.airport AS departure_airport',
+                'destinations.country AS destination_country',
+                'destinations.airport AS destination_airport',
+                'travels.flight_number',
+                'travels.departure_date',
+                'travels.departure_time',
+                'travels.arrival_date',
+                'travels.arrival_time',
+                'travels.travel_status'
+            );
+
+        if ($employeeId) {
+            $travelsQuery->where('travels.employee_id', $employeeId);
+        }
+
+        $travels = $travelsQuery->get();
+
+        return view('travels.index', compact('travels', 'employees', 'employeeId'));
     }
 
     public function create()
@@ -38,7 +70,22 @@ class TravelsController extends Controller
             'departure_date' => 'required|date|after_or_equal:today',
             'departure_time' => 'required|date_format:H:i',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
-            'arrival_time' => 'required|date_format:H:i',
+            'arrival_time' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->arrival_date === $request->departure_date && $value <= $request->departure_time) {
+                        $fail('De aankomsttijd moet later zijn dan de vertrektijd op dezelfde dag.');
+                    }
+
+                    $departureDateTime = Carbon::parse($request->departure_date . ' ' . $request->departure_time);
+                    $arrivalDateTime = Carbon::parse($request->arrival_date . ' ' . $value);
+
+                    if ($departureDateTime->diffInMinutes($arrivalDateTime) > 1440) {
+                        $fail('Een reis mag maximaal 24 uur duren.');
+                    }
+                },
+            ],
             'travel_status' => 'required|string|max:255',
         ]);
 
@@ -106,7 +153,22 @@ class TravelsController extends Controller
             'departure_date' => 'required|date|after_or_equal:today',
             'departure_time' => 'required|date_format:H:i',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
-            'arrival_time' => 'required|date_format:H:i',
+            'arrival_time' => [
+                'required',
+                'date_format:H:i',
+                function ($attribute, $value, $fail) use ($request) {
+                    if ($request->arrival_date === $request->departure_date && $value <= $request->departure_time) {
+                        $fail('De aankomsttijd moet later zijn dan de vertrektijd op dezelfde dag.');
+                    }
+
+                    $departureDateTime = Carbon::parse($request->departure_date . ' ' . $request->departure_time);
+                    $arrivalDateTime = Carbon::parse($request->arrival_date . ' ' . $value);
+
+                    if ($departureDateTime->diffInMinutes($arrivalDateTime) > 1440) {
+                        $fail('Een reis mag maximaal 24 uur duren.');
+                    }
+                },
+            ],
             'travel_status' => 'required|string|max:255',
         ]);
 

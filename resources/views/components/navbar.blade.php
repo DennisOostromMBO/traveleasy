@@ -11,7 +11,8 @@
             <a href="{{ url('/explore') }}" class="ml-4 hover:underline">Ontdek</a>
             <a href="{{ url('/about') }}" class="ml-4 hover:underline">Over Ons</a>
             <a href="{{ url('/contact') }}" class="ml-4 hover:underline">Contact</a>
-            <a href="{{ route('manager.bookings') }}" class="ml-4 hover:underline">Manager Dashboard</a>
+            <a href="{{ route('manager.bookings') }}" class="ml-4 hover:underline">Manager Dashboard</a> 
+
             @auth
             <span class="ml-4">|</span>
             <span class="ml-4">Welkom, {{ Auth::user()->name }}</span>
@@ -24,6 +25,7 @@
             <span class="ml-4">|</span>
             <a href="{{ route('login') }}" class="ml-4 hover:underline">Inloggen</a>
         @endauth
+
         </div>
     </div>
 </nav>

@@ -68,7 +68,8 @@ class InvoiceController extends Controller
     public function edit($id)
     {
         $invoice = Invoice::findOrFail($id);
-        return view('invoices.edit', compact('invoice'));
+        $bookings = Booking::with('customer.person')->get();
+        return view('invoices.edit', compact('invoice', 'bookings'));
     }
 
     public function update(Request $request, $id)

@@ -23,8 +23,15 @@ class ManagerController extends Controller
             $bookings = Booking::with('customer.person')
                 ->whereBetween('purchase_date', [$start_date, $end_date])
                 ->get();
+        } else {
+            // Fetch all bookings if no date range is provided
+            $bookings = Booking::with('customer.person')->get();
         }
 
-        return view('manager.dashboard', compact('bookings'));
+        // Calculate the most popular destinations and starting points
+        $popularDestinations = $bookings->groupBy('destination_country')->map->count()->sortDesc();
+        $popularStartingPoints = $bookings->groupBy('departure_country')->map->count()->sortDesc();
+
+        return view('manager.dashboard', compact('bookings', 'popularDestinations', 'popularStartingPoints'));
     }
 }

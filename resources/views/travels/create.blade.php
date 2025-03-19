@@ -64,35 +64,35 @@
 
             <div class="mb-4">
                 <label class="block font-medium">Vluchtnummer:</label>
-                <input type="text" name="flight_number" class="w-full p-2 border rounded" required>
+                <input type="text" name="flight_number" class="w-full p-2 border rounded" value="{{ old('flight_number') }}" required>
             </div>
 
             <div class="mb-4">
                 <label class="block font-medium">Vertrekdatum:</label>
-                <input type="date" name="departure_date" class="w-full p-2 border rounded" required>
+                <input type="date" name="departure_date" class="w-full p-2 border rounded" value="{{ old('departure_date') }}" required>
             </div>
 
             <div class="mb-4">
                 <label class="block font-medium">Vertrektijd:</label>
-                <input type="time" name="departure_time" class="w-full p-2 border rounded" required>
+                <input type="time" name="departure_time" class="w-full p-2 border rounded" value="{{ old('departure_time') }}" required>
             </div>
 
             <div class="mb-4">
                 <label class="block font-medium">Aankomstdatum:</label>
-                <input type="date" name="arrival_date" class="w-full p-2 border rounded" required>
+                <input type="date" name="arrival_date" class="w-full p-2 border rounded" value="{{ old('arrival_date') }}" required>
             </div>
 
             <div class="mb-4">
                 <label class="block font-medium">Aankomsttijd:</label>
-                <input type="time" name="arrival_time" class="w-full p-2 border rounded" required>
+                <input type="time" name="arrival_time" class="w-full p-2 border rounded" value="{{ old('arrival_time') }}" required>
             </div>
 
             <div class="mb-4">
                 <label class="block font-medium">Status:</label>
                 <select name="travel_status" class="w-full p-2 border rounded">
-                    <option value="Gepland">Gepland</option>
-                    <option value="Uitgevoerd">Uitgevoerd</option>
-                    <option value="Geannuleerd">Geannuleerd</option>
+                    <option value="Gepland" {{ old('travel_status') == 'Gepland' ? 'selected' : '' }}>Gepland</option>
+                    <option value="Uitgevoerd" {{ old('travel_status') == 'Uitgevoerd' ? 'selected' : '' }}>Uitgevoerd</option>
+                    <option value="Geannuleerd" {{ old('travel_status') == 'Geannuleerd' ? 'selected' : '' }}>Geannuleerd</option>
                 </select>
             </div>
 

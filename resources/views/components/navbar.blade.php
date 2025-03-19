@@ -11,8 +11,21 @@
             <a href="{{ url('/explore') }}" class="ml-4 hover:underline">Ontdek</a>
             <a href="{{ url('/about') }}" class="ml-4 hover:underline">Over Ons</a>
             <a href="{{ url('/contact') }}" class="ml-4 hover:underline">Contact</a>
-            <a href="{{ route('manager.bookings') }}" class="ml-4 hover:underline">Manager Dashboard</a>
-            <a href="{{ url('/bookings') }}" class="ml-4 hover:underline">Boekingen</a> <!-- New link added -->
+            <a href="{{ route('manager.bookings') }}" class="ml-4 hover:underline">Manager Dashboard</a> 
+
+            @auth
+            <span class="ml-4">|</span>
+            <span class="ml-4">Welkom, {{ Auth::user()->name }}</span>
+            <a href="{{ route('profile.edit') }}" class="ml-4 hover:underline">Profiel</a>
+            <form method="POST" action="{{ route('logout') }}" class="inline-block ml-4">
+                @csrf
+                <button type="submit" class="hover:underline">Uitloggen</button>
+            </form>
+        @else
+            <span class="ml-4">|</span>
+            <a href="{{ route('login') }}" class="ml-4 hover:underline">Inloggen</a>
+        @endauth
+
         </div>
     </div>
 </nav>

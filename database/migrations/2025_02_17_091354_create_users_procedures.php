@@ -15,6 +15,10 @@ return new class extends Migration
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllUsers');
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllRoles');
         DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateUser');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spCreateUser');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateUserName');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateUserPassword');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spDeleteUser');
 
         // Create spGetAllUsers procedure
         $pathUsers = database_path('sp/users/spGetAllUsers.sql');
@@ -30,6 +34,26 @@ return new class extends Migration
         $pathUpdateUser = database_path('sp/users/spUpdateUser.sql');
         $sqlUpdateUser = File::get($pathUpdateUser);
         DB::unprepared($sqlUpdateUser);
+
+        // Create spCreateUser procedure
+        $pathCreateUser = database_path('sp/users/spCreateUser.sql');
+        $sqlCreateUser = File::get($pathCreateUser);
+        DB::unprepared($sqlCreateUser);
+
+        // Create spUpdateUserName procedure
+        $pathUpdateUserName = database_path('sp/users/spUpdateUserName.sql');
+        $sqlUpdateUserName = File::get($pathUpdateUserName);
+        DB::unprepared($sqlUpdateUserName);
+
+        // Create spUpdateUserPassword procedure
+        $pathUpdateUserPassword = database_path('sp/users/spUpdateUserPassword.sql');
+        $sqlUpdateUserPassword = File::get($pathUpdateUserPassword);
+        DB::unprepared($sqlUpdateUserPassword);
+
+        // Create spDeleteUser procedure
+        $pathDeleteUser = database_path('sp/users/spDeleteUser.sql');
+        $sqlDeleteUser = File::get($pathDeleteUser);
+        DB::unprepared($sqlDeleteUser);
     }
 
     /**
@@ -41,5 +65,9 @@ return new class extends Migration
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllUsers');
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetAllRoles');
         DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateUser');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spCreateUser');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateUserName');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateUserPassword');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spDeleteUser');
     }
 };

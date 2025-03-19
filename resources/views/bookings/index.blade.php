@@ -13,12 +13,19 @@
         <div class="mb-4">
             <form action="{{ route('bookings.index') }}" method="GET" class="flex items-center">
                 <input type="text" name="search" placeholder="Zoeken..." class="w-full px-4 py-2 border rounded-lg" value="{{ request('search') }}">
+                <input type="number" name="min_price" placeholder="Min Prijs" class="w-32 px-4 py-2 border rounded-lg ml-2" value="{{ request('min_price') }}">
+                <input type="number" name="max_price" placeholder="Max Prijs" class="w-32 px-4 py-2 border rounded-lg ml-2" value="{{ request('max_price') }}">
                 <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-800 ml-2">Zoeken</button>
             </form>
         </div>
         @if(isset($errors) && $errors->has('search'))
             <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <span class="block sm:inline">{{ $errors->first('search') }}</span>
+            </div>
+        @endif
+        @if(isset($errors) && $errors->has('price'))
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+                <span class="block sm:inline">{{ $errors->first('price') }}</span>
             </div>
         @endif
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">

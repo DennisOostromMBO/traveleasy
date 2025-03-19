@@ -15,6 +15,8 @@ class BookingController extends Controller
         $booking = new Booking();
         $bookings = collect($booking->getAllBookings());
         $search = $request->input('search');
+        $minPrice = $request->input('min_price');
+        $maxPrice = $request->input('max_price');
         $errors = new MessageBag();
 
         if ($search) {
@@ -27,7 +29,24 @@ class BookingController extends Controller
             }
         }
 
-        if ($bookings->isEmpty() && !$search) {
+        if ($minPrice || $maxPrice) {
+            $bookings = $bookings->filter(function($booking) use ($minPrice, $maxPrice) {
+                if ($minPrice && $maxPrice) {
+                    return $booking->price >= $minPrice && $booking->price <= $maxPrice;
+                } elseif ($minPrice) {
+                    return $booking->price >= $minPrice;
+                } elseif ($maxPrice) {
+                    return $booking->price <= $maxPrice;
+                }
+                return true;
+            });
+
+            if ($bookings->isEmpty()) {
+                $errors->add('price', 'Geen reizen gevonden voor de opgegeven prijs.');
+            }
+        }
+
+        if ($bookings->isEmpty() && !$search && !$minPrice && !$maxPrice) {
             $errors->add('search', 'Momenteel geen boekingen beschikbaar.');
         }
 

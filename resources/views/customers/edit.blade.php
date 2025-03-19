@@ -54,7 +54,8 @@
                                id="first_name" 
                                name="first_name" 
                                value="{{ old('first_name', $customer->first_name) }}" 
-                               class="mt-1 block w-full p-3 border @error('first_name') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('first_name') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="Jan">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -66,7 +67,8 @@
                                id="middle_name" 
                                name="middle_name" 
                                value="{{ old('middle_name', $customer->middle_name) }}" 
-                               class="mt-1 block w-full p-3 border @error('middle_name') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('middle_name') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="van der">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -78,7 +80,8 @@
                                id="last_name" 
                                name="last_name" 
                                value="{{ old('last_name', $customer->last_name) }}" 
-                               class="mt-1 block w-full p-3 border @error('last_name') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('last_name') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="Berg">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -102,7 +105,8 @@
                                id="passport_details" 
                                name="passport_details" 
                                value="{{ old('passport_details', $customer->passport_details) }}" 
-                               class="mt-1 block w-full p-3 border @error('passport_details') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('passport_details') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="NW2XX3B4">
                     </div>
                 </div>
             </div>
@@ -121,7 +125,8 @@
                                id="street_name" 
                                name="street_name" 
                                value="{{ old('street_name', $customer->street_name) }}" 
-                               class="mt-1 block w-full p-3 border @error('street_name') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('street_name') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="Hoofdstraat">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -133,7 +138,8 @@
                                id="house_number" 
                                name="house_number" 
                                value="{{ old('house_number', $customer->house_number) }}" 
-                               class="mt-1 block w-full p-3 border @error('house_number') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('house_number') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="42">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -145,7 +151,8 @@
                                id="addition" 
                                name="addition" 
                                value="{{ old('addition', $customer->addition) }}" 
-                               class="mt-1 block w-full p-3 border @error('addition') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('addition') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="A">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -157,7 +164,8 @@
                                id="postal_code" 
                                name="postal_code" 
                                value="{{ old('postal_code', $customer->postal_code) }}" 
-                               class="mt-1 block w-full p-3 border @error('postal_code') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('postal_code') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="1234AB">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -169,7 +177,8 @@
                                id="city" 
                                name="city" 
                                value="{{ old('city', $customer->city) }}" 
-                               class="mt-1 block w-full p-3 border @error('city') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('city') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="Amsterdam">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -181,7 +190,8 @@
                                id="mobile" 
                                name="mobile" 
                                value="{{ old('mobile', $customer->mobile) }}" 
-                               class="mt-1 block w-full p-3 border @error('mobile') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('mobile') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="0612345678">
                     </div>
 
                     <div class="mb-4 input-container">
@@ -193,7 +203,8 @@
                                id="email" 
                                name="email" 
                                value="{{ old('email', $customer->email) }}" 
-                               class="mt-1 block w-full p-3 border @error('email') border-red-500 @else border-gray-300 @enderror rounded-md">
+                               class="mt-1 block w-full p-3 border @error('email') border-red-500 @else border-gray-300 @enderror rounded-md"
+                               placeholder="jan.berg@email.nl">
                     </div>
                 </div>
             </div>

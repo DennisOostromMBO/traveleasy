@@ -7,6 +7,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\CommunicationController;
 use App\Http\Controllers\TravelsController; // Voeg de TravelsController toe
 use App\Http\Controllers\boekenKlantController; // Voeg de boekenKlantController toe
+use Illuminate\Support\Facades\Log;
 
 Route::get('/', function () {
     return view('index');
@@ -24,6 +25,11 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/communications', [CommunicationController::class, 'index']);
 Route::get('/travels', [TravelsController::class, 'index']); // Nieuwe route voor reizenoverzicht
+
+Route::get('/test-log', function () {
+    Log::info('Test log message');
+    return 'Log message written';
+});
 
 require __DIR__.'/wassim_routes.php';
 require __DIR__.'/auth.php';

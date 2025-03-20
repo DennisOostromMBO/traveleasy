@@ -19,7 +19,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="price" class="block text-gray-700">Prijs</label>
-                    <input type="number" step="0.01" name="price" id="price" class="w-full p-2 border border-gray-300 rounded mt-1" value="{{ $booking->price }}" required>
+                    <input type="number" step="0.01" name="price" id="price" class="w-full p-2 border border-gray-300 rounded mt-1" value="{{ $booking->price }}" {{ $booking->booking_status === 'Bevestigd' ? 'readonly' : '' }} required>
                 </div>
                 <div class="mb-4">
                     <label for="booking_status" class="block text-gray-700">Boekingsstatus</label>
@@ -34,7 +34,7 @@
                     <textarea name="note" id="note" class="w-full p-2 border border-gray-300 rounded mt-1">{{ $booking->note }}</textarea>
                 </div>
                 <div class="mb-4">
-                    <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700">Boeking Bijwerken</button>
+                    <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700" onclick="return confirm('Weet u zeker dat u deze boeking wilt bijwerken?')">Boeking Bijwerken</button>
                 </div>
             </form>
         </div>

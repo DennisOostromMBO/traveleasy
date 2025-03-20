@@ -13,6 +13,12 @@
 <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-6 sm:p-8 md:p-12 rounded-lg shadow-lg w-full max-w-7xl">
         <h1 class="text-2xl font-bold mb-6 text-center sm:text-left">Berichten</h1>
+
+        <div class="mb-4 text-center sm:text-left">
+            <a href="{{ route('communications.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                Nieuwe Bericht
+            </a>
+        </div>
         
         {{-- Controleer of er berichten zijn --}}
         @if(count($messages) > 0)

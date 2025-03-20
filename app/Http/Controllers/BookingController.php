@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Mail;
 
 class BookingController extends Controller
 {
@@ -133,5 +134,50 @@ class BookingController extends Controller
         $bookings = Booking::where('sale', '>', 0)->paginate(6);
 
         return view('bookings.sales', compact('bookings'));
+    }
+
+    public function bookNow(Request $request, $id)
+    {
+        if (!\Illuminate\Support\Facades\Auth::check()) {
+            return redirect()->route('login')->with('error', 'U moet ingelogd zijn om een boeking te maken.');
+        }
+
+        $user = \Illuminate\Support\Facades\Auth::user();
+        if (!$user) {
+            return redirect()->route('login')->with('error', 'Gebruiker niet gevonden. Probeer opnieuw in te loggen.');
+        }
+
+        // Check if the user has already purchased 4 or more bookings
+        $existingBookingsCount = Booking::where('customer_id', $user->id)->count();
+        if ($existingBookingsCount >= 4) {
+            return redirect()->route('bookings.show', $id)->with('error', 'U kunt maximaal 4 boekingen per e-mailadres maken.');
+        }
+
+        $request->validate([
+            'customer_id' => 'required|exists:users,id',
+            'travel_id' => 'required|exists:travels,id',
+            'seat_number' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'quantity' => 'required|integer|min:1|max:4',
+            'special_requests' => 'nullable|string',
+            'departure_country' => 'required|string|max:255',
+            'destination_country' => 'required|string|max:255',
+        ]);
+
+        $booking = Booking::create([
+            'customer_id' => $user->id,
+            'travel_id' => $request->input('travel_id'),
+            'seat_number' => $request->input('seat_number'),
+            'price' => $request->input('price'),
+            'quantity' => $request->input('quantity'),
+            'special_requests' => $request->input('special_requests'),
+            'departure_country' => $request->input('departure_country'),
+            'destination_country' => $request->input('destination_country'),
+            'purchase_date' => now()->toDateString(),
+            'purchase_time' => now()->toTimeString(),
+            'booking_status' => 'Confirmed',
+            'is_active' => true,
+        ]);
+
     }
 }

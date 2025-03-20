@@ -49,6 +49,9 @@
                     <div class="border-t mt-4 pt-4 flex justify-between items-center">
                         <p class="text-gray-700">Vanaf <span class="font-bold text-lg">€{{ number_format($booking->price, 2) }}</span></p>
                         <a href="{{ route('bookings.show', $booking->booking_id) }}" class="bg-purple-700 text-white px-4 py-2 rounded-lg hover:bg-purple-800">Boek</a>
+                        @if(Auth::check())
+                            <a href="{{ route('bookings.edit', $booking->booking_id) }}" class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-800 ml-2">Bewerk</a>
+                        @endif
                     </div>
                 </div>
             @endforeach

@@ -19,10 +19,25 @@ class TravelsSeeder extends Seeder
                 'departure_id' => 1, // Zorg ervoor dat dit ID bestaat in de departures-tabel
                 'destination_id' => 1, // Zorg ervoor dat dit ID bestaat in de destinations-tabel
                 'flight_number' => 'KL1234',
-                'departure_date' => '2025-03-15',
+                'departure_date' => '2025-03-25',
                 'departure_time' => '08:30:00',
-                'arrival_date' => '2025-03-15',
+                'arrival_date' => '2025-03-25',
                 'arrival_time' => '12:45:00',
+                'travel_status' => 'Gepland',
+                'is_active' => true,
+                'note' => 'Zakelijke vlucht',
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],
+            [
+                'employee_id' => 1, // Zorg ervoor dat dit ID bestaat in de employees-tabel
+                'departure_id' => 2, // Zorg ervoor dat dit ID bestaat in de departures-tabel
+                'destination_id' => 1, // Zorg ervoor dat dit ID bestaat in de destinations-tabel
+                'flight_number' => 'KL5678',
+                'departure_date' => '2025-03-25',
+                'departure_time' => '15:30:00',
+                'arrival_date' => '2025-03-25',
+                'arrival_time' => '18:45:00',
                 'travel_status' => 'Gepland',
                 'is_active' => true,
                 'note' => 'Zakelijke vlucht',

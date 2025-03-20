@@ -23,6 +23,9 @@ Route::get('/bookings/{id}/edit', [BookingController::class, 'edit'])->name('boo
 Route::patch('/bookings/{id}', [BookingController::class, 'update'])->name('bookings.update');
 Route::delete('/bookings/{id}', [BookingController::class, 'destroy'])->name('bookings.destroy');
 Route::get('/bookings/purchase/{id}', [BookingController::class, 'purchase'])->name('bookings.purchase');
+Route::post('/bookings/{id}/book-now', [BookingController::class, 'bookNow'])->name('bookings.bookNow');
+Route::get('/bookings/{id}/payment', [BookingController::class, 'payment'])->name('bookings.payment');
+Route::post('/bookings/{id}/complete-payment', [BookingController::class, 'completePayment'])->name('bookings.completePayment');
 
 Route::get('/manager/bookings', [ManagerController::class, 'bookings'])->name('manager.bookings');
 

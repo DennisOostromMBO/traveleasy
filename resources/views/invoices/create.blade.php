@@ -21,6 +21,7 @@
         <div class="bg-white shadow-md rounded-lg overflow-hidden p-6">
             <form action="{{ route('invoices.store') }}" method="POST">
                 @csrf
+                <input type="hidden" name="invoice_number" id="invoice_number">
                 <div class="mb-4">
                     <label for="booking_id" class="block text-gray-700">Boeking</label>
                     <select name="booking_id" id="booking_id" class="w-full px-4 py-2 border rounded-lg" required>

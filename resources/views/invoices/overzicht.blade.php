@@ -41,7 +41,11 @@
                                 <td class="w-1/6 py-3 px-4">{{ \Carbon\Carbon::parse($invoice->invoice_date)->format('d-m-Y') }}</td>
                                 <td class="w-1/6 py-3 px-4">
                                     <a href="{{ route('invoices.show', $invoice->id) }}" class="text-blue-600 hover:underline">Bekijken</a>
-                                    <a href="{{ route('invoices.edit', $invoice->id) }}" class="text-blue-600 hover:underline ml-2">Bewerken</a>
+                                    @if($invoice->invoice_status !== 'Betaald')
+                                        <a href="{{ route('invoices.edit', $invoice->id) }}" class="text-blue-600 hover:underline ml-2">Bewerken</a>
+                                    @else
+                                        <span class="text-gray-400 ml-2 cursor-not-allowed">Bewerken</span>
+                                    @endif
                                     <a href="{{ route('invoices.pdf', $invoice->booking_id) }}" class="text-blue-600 hover:underline ml-2">Download PDF</a>
                                     <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline-block ml-2">
                                         @csrf

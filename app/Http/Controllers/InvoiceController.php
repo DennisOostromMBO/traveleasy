@@ -50,9 +50,11 @@ class InvoiceController extends Controller
         $vat = $amount_incl_vat * 0.21;
         $amount_excl_vat = $amount_incl_vat - $vat;
 
+        $invoice_number = 'FACT-' . str_pad(Invoice::max('id') + 1, 6, '0', STR_PAD_LEFT);
+
         Invoice::create([
             'booking_id' => $request->booking_id,
-            'invoice_number' => 'FACT-' . str_pad($booking->id, 6, '0', STR_PAD_LEFT),
+            'invoice_number' => $invoice_number,
             'invoice_date' => $request->invoice_date,
             'amount_excl_vat' => $amount_excl_vat,
             'vat' => $vat,

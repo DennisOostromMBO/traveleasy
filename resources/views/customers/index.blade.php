@@ -112,15 +112,20 @@
                                 </td>
                                 <td class="py-2 px-3 border-b">{{ $customer->relation_number }}</td>
                                 <td class="py-2 px-3 border-b">
-                                    <a href="{{ route('customers.edit', $customer->person_id) }}" 
+                                    <a href="{{ route('customers.edit', ['customer' => $customer->person_id, 'page' => request('page', 1)]) }}" 
                                        class="bg-blue-500 text-white px-2 py-1 rounded hover:bg-blue-600 text-xs">
                                         Bewerken
                                     </a>
                                 </td>
                                 <td class="py-2 px-3 border-b">
-                                    <button class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs">
-                                        Verwijderen
-                                    </button>
+                                    <form action="{{ route('customers.destroy', $customer->person_id) }}" method="POST" onsubmit="return confirm('Weet je zeker dat je deze klant wilt verwijderen?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <input type="hidden" name="page" value="{{ request('page', 1) }}">
+                                        <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs">
+                                            Verwijderen
+                                        </button>
+                                    </form>
                                 </td>
                             </tr>
                         @endforeach
@@ -185,9 +190,14 @@
                                class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 text-sm">
                                 Bewerken
                             </a>
-                            <button class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 text-sm">
-                                Verwijderen
-                            </button>
+                            <form action="{{ route('customers.destroy', $customer->person_id) }}" method="POST" onsubmit="return confirm('Weet je zeker dat je deze klant wilt verwijderen?');">
+                                @csrf
+                                @method('DELETE')
+                                <input type="hidden" name="page" value="{{ request('page', 1) }}">
+                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 text-sm">
+                                    Verwijderen
+                                </button>
+                            </form>
                         </div>
                     </div>
                 @endforeach

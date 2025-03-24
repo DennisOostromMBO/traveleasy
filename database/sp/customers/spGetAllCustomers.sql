@@ -25,5 +25,7 @@ BEGIN
     INNER JOIN 
         customers cu ON p.id = cu.persons_id
     INNER JOIN 
-        contacts c ON cu.id = c.customer_id;
+        contacts c ON cu.id = c.customer_id
+    ORDER BY 
+        cu.created_at DESC;
 END;

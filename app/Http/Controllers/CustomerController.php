@@ -329,11 +329,40 @@ class CustomerController extends Controller
                 $request->email
             ]);
 
-            return redirect()->route('customers.index')
+            // Get the current page from the request
+            $currentPage = $request->input('page', 1);
+
+            return redirect()->route('customers.index', ['page' => $currentPage])
                            ->with('success', 'Klantgegevens succesvol bijgewerkt.');
         } catch (\Exception $e) {
             return back()->withInput()
                         ->with('error', 'Er is een fout opgetreden bij het bijwerken van de klantgegevens.');
+        }
+    }
+
+    public function destroy($id, Request $request)
+    {
+        try {
+            DB::select('CALL spDeleteCustomer(?)', [$id]);
+
+            // Get the current page from the request
+            $currentPage = $request->input('page', 1);
+
+            // Check if the current page is empty after deletion
+            $customers = DB::select('CALL spGetAllCustomers()');
+            $totalCustomers = count($customers);
+            $perPage = 5; // Items per page
+            $lastPage = (int) ceil($totalCustomers / $perPage);
+
+            // Redirect to the previous page if the current page is empty
+            if ($currentPage > $lastPage) {
+                $currentPage = $lastPage;
+            }
+
+            return redirect()->route('customers.index', ['page' => $currentPage])
+                             ->with('success', 'Klant succesvol verwijderd.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Er is een fout opgetreden bij het verwijderen van de klant.');
         }
     }
 }

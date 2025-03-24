@@ -27,6 +27,7 @@
         <form action="{{ route('customers.update', $customer->person_id) }}" method="POST">
             @csrf
             @method('PUT')
+            <input type="hidden" name="page" value="{{ request('page', 1) }}">
 
             @if ($errors->has('email_exists'))
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-6">

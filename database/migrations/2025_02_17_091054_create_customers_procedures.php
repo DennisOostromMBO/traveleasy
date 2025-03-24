@@ -16,6 +16,7 @@ return new class extends Migration
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetCustomerById');
         DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateCustomer');
         DB::unprepared('DROP PROCEDURE IF EXISTS spCreateCustomer');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spDeleteCustomer');
 
         // Create spGetAllCustomers procedure
         $pathGetAll = database_path('sp/customers/spGetAllCustomers.sql');
@@ -32,6 +33,10 @@ return new class extends Migration
         // Create spCreateCustomer procedure
         $pathCreate = database_path('sp/customers/spCreateCustomer.sql');
         DB::unprepared(File::get($pathCreate));
+
+        // Create spDeleteCustomer procedure
+        $pathDelete = database_path('sp/customers/spDeleteCustomer.sql');
+        DB::unprepared(File::get($pathDelete));
     }
 
     /**
@@ -44,5 +49,6 @@ return new class extends Migration
         DB::unprepared('DROP PROCEDURE IF EXISTS spGetCustomerById');
         DB::unprepared('DROP PROCEDURE IF EXISTS spUpdateCustomer');
         DB::unprepared('DROP PROCEDURE IF EXISTS spCreateCustomer');
+        DB::unprepared('DROP PROCEDURE IF EXISTS spDeleteCustomer');
     }
 };

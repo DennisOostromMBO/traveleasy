@@ -336,4 +336,15 @@ class CustomerController extends Controller
                         ->with('error', 'Er is een fout opgetreden bij het bijwerken van de klantgegevens.');
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            DB::select('CALL spDeleteCustomer(?)', [$id]);
+            return redirect()->route('customers.index')
+                             ->with('success', 'Klant succesvol verwijderd.');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Er is een fout opgetreden bij het verwijderen van de klant.');
+        }
+    }
 }

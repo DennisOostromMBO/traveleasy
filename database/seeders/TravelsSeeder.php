@@ -18,7 +18,7 @@ class TravelsSeeder extends Seeder
                 'employee_id' => 1, // Zorg ervoor dat dit ID bestaat in de employees-tabel
                 'departure_id' => 1, // Zorg ervoor dat dit ID bestaat in de departures-tabel
                 'destination_id' => 1, // Zorg ervoor dat dit ID bestaat in de destinations-tabel
-                'flight_number' => 'KL1234',
+                'flight_number' => 'TE-1',
                 'departure_date' => '2025-03-25',
                 'departure_time' => '08:30:00',
                 'arrival_date' => '2025-03-25',
@@ -33,7 +33,7 @@ class TravelsSeeder extends Seeder
                 'employee_id' => 1, // Zorg ervoor dat dit ID bestaat in de employees-tabel
                 'departure_id' => 2, // Zorg ervoor dat dit ID bestaat in de departures-tabel
                 'destination_id' => 1, // Zorg ervoor dat dit ID bestaat in de destinations-tabel
-                'flight_number' => 'KL5678',
+                'flight_number' => 'TE-2',
                 'departure_date' => '2025-03-25',
                 'departure_time' => '15:30:00',
                 'arrival_date' => '2025-03-25',
@@ -48,7 +48,7 @@ class TravelsSeeder extends Seeder
                 'employee_id' => 2,
                 'departure_id' => 2,
                 'destination_id' => 2,
-                'flight_number' => 'AF5678',
+                'flight_number' => 'TE-3',
                 'departure_date' => '2025-04-10',
                 'departure_time' => '14:00:00',
                 'arrival_date' => '2025-04-10',

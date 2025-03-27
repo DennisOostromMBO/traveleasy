@@ -32,6 +32,7 @@ Route::get('/travels/create', [TravelsController::class, 'create'])->name('trave
 Route::post('/travels', [TravelsController::class, 'store'])->name('travels.store');
 Route::get('/travels/{id}/edit', [TravelsController::class, 'edit'])->name('travels.edit');
 Route::put('/travels/{id}', [TravelsController::class, 'update'])->name('travels.update');
+Route::delete('/travels/{id}', [TravelsController::class, 'destroy'])->name('travels.destroy');
 
 Route::get('/test-log', function () {
     Log::info('Test log message');

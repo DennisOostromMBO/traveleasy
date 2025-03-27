@@ -214,4 +214,14 @@ class TravelsController extends Controller
             return redirect()->back()->with('error', 'Fout bij opslaan: ' . $e->getMessage());
         }
     }
+
+    public function destroy($id)
+    {
+        try {
+            DB::table('travels')->where('id', $id)->delete();
+            return redirect()->route('travels.index')->with('success', 'Reis succesvol verwijderd!');
+        } catch (\Exception $e) {
+            return redirect()->route('travels.index')->with('error', 'Fout bij het verwijderen van de reis: ' . $e->getMessage());
+        }
+    }
 }

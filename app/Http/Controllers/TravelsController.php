@@ -66,7 +66,6 @@ class TravelsController extends Controller
             'employee_id' => 'required|exists:employees,id',
             'departure_id' => 'required|exists:departures,id',
             'destination_id' => 'required|exists:destinations,id',
-            'flight_number' => 'required|string|max:255',
             'departure_date' => 'required|date|after_or_equal:today',
             'departure_time' => 'required|date_format:H:i',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
@@ -110,17 +109,16 @@ class TravelsController extends Controller
         }
 
         try {
-            DB::statement('CALL spCreateTravel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+            DB::statement('CALL spCreateTravel(?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                 $request->employee_id,
                 $request->departure_id,
                 $request->destination_id,
-                $request->flight_number,
                 $request->departure_date,
                 $request->departure_time,
                 $request->arrival_date,
                 $request->arrival_time,
                 $request->travel_status,
-                1 // is_active standaard op 1 zetten
+                1 
             ]);
 
             return redirect()->route('travels.index')->with('success', 'Reis succesvol toegevoegd!');
@@ -149,7 +147,6 @@ class TravelsController extends Controller
             'employee_id' => 'required|exists:employees,id',
             'departure_id' => 'required|exists:departures,id',
             'destination_id' => 'required|exists:destinations,id',
-            'flight_number' => 'required|string|max:255',
             'departure_date' => 'required|date|after_or_equal:today',
             'departure_time' => 'required|date_format:H:i',
             'arrival_date' => 'required|date|after_or_equal:departure_date',
@@ -195,12 +192,11 @@ class TravelsController extends Controller
         }
 
         try {
-            DB::statement('CALL spUpdateTravel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
+            DB::statement('CALL spUpdateTravel(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [
                 $id,
                 $request->employee_id,
                 $request->departure_id,
                 $request->destination_id,
-                $request->flight_number,
                 $request->departure_date,
                 $request->departure_time,
                 $request->arrival_date,

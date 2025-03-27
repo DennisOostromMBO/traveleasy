@@ -64,11 +64,6 @@
             </div>
 
             <div class="mb-4">
-                <label class="block font-medium">Vluchtnummer:</label>
-                <input type="text" name="flight_number" class="w-full p-2 border rounded" value="{{ old('flight_number', $travel->flight_number) }}" required>
-            </div>
-
-            <div class="mb-4">
                 <label class="block font-medium">Vertrekdatum:</label>
                 <input type="date" name="departure_date" class="w-full p-2 border rounded" value="{{ old('departure_date', $travel->departure_date) }}" required>
             </div>

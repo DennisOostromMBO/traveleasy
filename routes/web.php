@@ -23,16 +23,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/communications', [CommunicationController::class, 'index']);
-Route::get('/communications/create', function () {
-    return view('communications.create');
-})->name('communications.create');
+Route::get('/communications', [CommunicationController::class, 'index'])->name('communications.index');
+Route::get('/communications/create', [CommunicationController::class, 'create'])->name('communications.create');
+Route::post('/communications', [CommunicationController::class, 'store'])->name('communications.store');
+
 Route::get('/travels', [TravelsController::class, 'index'])->name('travels.index'); // Nieuwe route voor reizenoverzicht
 Route::get('/travels/create', [TravelsController::class, 'create'])->name('travels.create');
 Route::post('/travels', [TravelsController::class, 'store'])->name('travels.store');
 Route::get('/travels/{id}/edit', [TravelsController::class, 'edit'])->name('travels.edit');
 Route::put('/travels/{id}', [TravelsController::class, 'update'])->name('travels.update');
 Route::delete('/travels/{id}', [TravelsController::class, 'destroy'])->name('travels.destroy');
+
+Route::get('/customers/search', [CommunicationController::class, 'searchCustomers'])->name('customers.search');
+Route::get('/employees/search', [CommunicationController::class, 'searchEmployees'])->name('employees.search');
 
 Route::get('/test-log', function () {
     Log::info('Test log message');

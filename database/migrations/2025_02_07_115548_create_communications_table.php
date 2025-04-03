@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('employee_id')->constrained()->onDelete('cascade');
             $table->text('message');
             $table->timestamp('sent_date');
-            $table->boolean('is_active');
+            $table->boolean('is_active')->default(true); // Set default value for is_active
             $table->text('note')->nullable();
             $table->timestamps();
         });

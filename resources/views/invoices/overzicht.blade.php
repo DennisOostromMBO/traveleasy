@@ -47,11 +47,15 @@
                                         <span class="text-gray-400 ml-2 cursor-not-allowed">Bewerken</span>
                                     @endif
                                     <a href="{{ route('invoices.pdf', $invoice->booking_id) }}" class="text-blue-600 hover:underline ml-2">Download PDF</a>
-                                    <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline-block ml-2">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Weet je zeker dat je deze factuur wilt verwijderen?')">Verwijderen</button>
-                                    </form>
+                                    @if($invoice->invoice_status === 'In afwachting' || $invoice->invoice_status === 'Betaald')
+                                        <span class="text-gray-400 ml-2 cursor-not-allowed">Verwijderen</span>
+                                    @else
+                                        <form action="{{ route('invoices.destroy', $invoice->id) }}" method="POST" class="inline-block ml-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="text-red-600 hover:underline" onclick="return confirm('Weet je zeker dat je deze factuur wilt verwijderen?')">Verwijderen</button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

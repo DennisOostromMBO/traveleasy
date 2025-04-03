@@ -29,7 +29,7 @@
                         <tr class="bg-gray-100">
                             <th class="py-3 px-4 border-b text-left font-semibold">Klant Naam</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Werknemer Naam</th>
-                            <th class="py-3 px-4 border-b text-left font-semibold">Bericht(en)</th>
+                            <th class="py-3 px-4 border-b text-left font-semibold">Berichten</th>
                             <th class="py-3 px-4 border-b text-left font-semibold">Verzenddatum</th>
                         </tr>
                     </thead>

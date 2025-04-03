@@ -72,7 +72,7 @@
                             <th class="py-2 px-3 border-b text-left font-semibold">Adres</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Email</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Mobiel</th>
-                            <th class="py-2 px-3 border-b text-left font-semibold">Relatienummer</th>
+                            <th class="py-2 px-3 border-b text-left font-semibold">Klantennummer</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Bewerken</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Verwijderen</th>
                         </tr>
@@ -182,7 +182,7 @@
                             </div>
                         </div>
                         <div class="mb-1">
-                            <span class="font-semibold">Relatienummer:</span>
+                            <span class="font-semibold">Klantennummer:</span>
                             <span>{{ $customer->relation_number }}</span>
                         </div>
                         <div class="mt-3 flex justify-end gap-2">

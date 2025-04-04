@@ -17,11 +17,17 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+Route::get('/employee-dashboard', function () {
+    return view('employee-dashboard');
+})->middleware(['auth', 'verified'])->name('employee.dashboard');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 Route::get('/communications', [CommunicationController::class, 'index'])->name('communications.index');
 Route::get('/communications/create', [CommunicationController::class, 'create'])->name('communications.create');

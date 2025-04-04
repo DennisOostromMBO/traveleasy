@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\Invoice;
 use Illuminate\Http\Request;
 
 class ManagerController extends Controller
@@ -24,14 +25,16 @@ class ManagerController extends Controller
                 ->whereBetween('purchase_date', [$start_date, $end_date])
                 ->get();
         } else {
-            // Fetch all bookings if no date range is provided
             $bookings = Booking::with('customer.person')->get();
         }
 
-        // Calculate the most popular destinations and starting points
+        // Populaire bestemmingen en vertrekpunten berekenen
         $popularDestinations = $bookings->groupBy('destination_country')->map->count()->sortDesc();
         $popularStartingPoints = $bookings->groupBy('departure_country')->map->count()->sortDesc();
 
-        return view('manager.dashboard', compact('bookings', 'popularDestinations', 'popularStartingPoints'));
+        // Betaalde facturen ophalen
+        $paidInvoices = Invoice::where('invoice_status', 'Betaald')->get();
+
+        return view('manager.dashboard', compact('bookings', 'popularDestinations', 'popularStartingPoints', 'paidInvoices'));
     }
 }

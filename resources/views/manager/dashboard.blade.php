@@ -87,7 +87,7 @@
                 <canvas id="startingPointsChart" class="mb-6"></canvas>
             </div>
         </div>
-        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <div class="bg-white shadow-md rounded-lg overflow-hidden mb-4">
             <div class="flex justify-between items-center bg-blue-600 text-white py-2 px-4 cursor-pointer" onclick="toggleCollapse('bookingsSection')">
                 <h2 class="text-xl font-semibold">Boekingen</h2>
                 <span id="bookingsToggle" class="text-2xl">+</span>
@@ -137,11 +137,44 @@
                 @endif
             </div>
         </div>
+        <div class="bg-white shadow-md rounded-lg overflow-hidden mb-4">
+            <div class="flex justify-between items-center bg-blue-600 text-white py-2 px-4 cursor-pointer" onclick="toggleCollapse('invoicesSection')">
+                <h2 class="text-xl font-semibold">Betaalde Facturen</h2>
+                <span id="invoicesToggle" class="text-2xl">+</span>
+            </div>
+            <div id="invoicesSection" class="collapse-content">
+                @if($paidInvoices->isEmpty())
+                    <div class="p-4 text-center text-gray-700">Geen betaalde facturen gevonden</div>
+                @else
+                    <table class="min-w-full bg-white">
+                        <thead class="bg-blue-600 text-white">
+                            <tr>
+                                <th class="py-3 px-4 uppercase font-semibold text-sm">Factuurnummer</th>
+                                <th class="py-3 px-4 uppercase font-semibold text-sm">Bedrag (incl. BTW)</th>
+                                <th class="py-3 px-4 uppercase font-semibold text-sm">Factuurdatum</th>
+                                <th class="py-3 px-4 uppercase font-semibold text-sm">Opmerking</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-700">
+                            @foreach($paidInvoices as $invoice)
+                                <tr>
+                                    <td class="py-3 px-4">{{ $invoice->invoice_number }}</td>
+                                    <td class="py-3 px-4">€{{ number_format($invoice->amount_incl_vat, 2) }}</td>
+                                    <td class="py-3 px-4">{{ \Carbon\Carbon::parse($invoice->invoice_date)->format('d-m-Y') }}</td>
+                                    <td class="py-3 px-4">{{ $invoice->note }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                @endif
+            </div>
+        </div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const graphsToggle = document.getElementById('graphsToggle');
             const bookingsToggle = document.getElementById('bookingsToggle');
+            const invoicesToggle = document.getElementById('invoicesToggle');
 
             graphsToggle.addEventListener('click', function () {
                 graphsToggle.textContent = graphsToggle.textContent === '+' ? '-' : '+';
@@ -149,6 +182,10 @@
 
             bookingsToggle.addEventListener('click', function () {
                 bookingsToggle.textContent = bookingsToggle.textContent === '+' ? '-' : '+';
+            });
+
+            invoicesToggle.addEventListener('click', function () {
+                invoicesToggle.textContent = invoicesToggle.textContent === '+' ? '-' : '+';
             });
         });
     </script>

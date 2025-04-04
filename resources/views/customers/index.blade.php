@@ -72,7 +72,7 @@
                             <th class="py-2 px-3 border-b text-left font-semibold">Adres</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Email</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Mobiel</th>
-                            <th class="py-2 px-3 border-b text-left font-semibold">Klantennummer</th>
+                            <th class="py-2 px-3 border-b text-left font-semibold">Relatienummer</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Bewerken</th>
                             <th class="py-2 px-3 border-b text-left font-semibold">Verwijderen</th>
                         </tr>
@@ -118,14 +118,18 @@
                                     </a>
                                 </td>
                                 <td class="py-2 px-3 border-b">
-                                    <form action="{{ route('customers.destroy', $customer->person_id) }}" method="POST" onsubmit="return confirm('Weet je zeker dat je deze klant wilt verwijderen?');">
-                                        @csrf
-                                        @method('DELETE')
-                                        <input type="hidden" name="page" value="{{ request('page', 1) }}">
-                                        <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs">
-                                            Verwijderen
-                                        </button>
-                                    </form>
+                                    @if (!empty($customer->passport_details))
+                                        <button class="bg-gray-400 text-white px-2 py-1 rounded cursor-not-allowed text-xs" disabled>Verwijderen</button>
+                                    @else
+                                        <form action="{{ route('customers.destroy', $customer->person_id) }}" method="POST" onsubmit="return confirm('Weet je zeker dat je deze klant wilt verwijderen?');">
+                                            @csrf
+                                            @method('DELETE')
+                                            <input type="hidden" name="page" value="{{ request('page', 1) }}">
+                                            <button type="submit" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 text-xs">
+                                                Verwijderen
+                                            </button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach
@@ -182,7 +186,7 @@
                             </div>
                         </div>
                         <div class="mb-1">
-                            <span class="font-semibold">Klantennummer:</span>
+                            <span class="font-semibold">Relatienummer:</span>
                             <span>{{ $customer->relation_number }}</span>
                         </div>
                         <div class="mt-3 flex justify-end gap-2">
@@ -190,14 +194,18 @@
                                class="bg-blue-500 text-white px-3 py-1 rounded-lg hover:bg-blue-600 text-sm">
                                 Bewerken
                             </a>
-                            <form action="{{ route('customers.destroy', $customer->person_id) }}" method="POST" onsubmit="return confirm('Weet je zeker dat je deze klant wilt verwijderen?');">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="page" value="{{ request('page', 1) }}">
-                                <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 text-sm">
-                                    Verwijderen
-                                </button>
-                            </form>
+                            @if (!empty($customer->passport_details))
+                                <button class="bg-gray-400 text-white px-3 py-1 rounded-lg cursor-not-allowed text-sm" disabled>Verwijderen</button>
+                            @else
+                                <form action="{{ route('customers.destroy', $customer->person_id) }}" method="POST" onsubmit="return confirm('Weet je zeker dat je deze klant wilt verwijderen?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="page" value="{{ request('page', 1) }}">
+                                    <button type="submit" class="bg-red-500 text-white px-3 py-1 rounded-lg hover:bg-red-600 text-sm">
+                                        Verwijderen
+                                    </button>
+                                </form>
+                            @endif
                         </div>
                     </div>
                 @endforeach

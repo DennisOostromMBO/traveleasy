@@ -213,6 +213,16 @@ class TravelsController extends Controller
 
     public function destroy($id)
     {
+        $travel = DB::table('travels')->where('id', $id)->first();
+
+        if (!$travel) {
+            return redirect()->route('travels.index')->with('error', 'Reis niet gevonden.');
+        }
+
+        if (in_array($travel->travel_status, ['Gepland', 'Uitgevoerd'])) {
+            return redirect()->route('travels.index')->with('error', 'Reis met status "Gepland" of "Uitgevoerd" kan niet worden verwijderd.');
+        }
+
         try {
             DB::table('travels')->where('id', $id)->delete();
             return redirect()->route('travels.index')->with('success', 'Reis succesvol verwijderd!');

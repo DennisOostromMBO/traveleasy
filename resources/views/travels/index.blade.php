@@ -64,14 +64,18 @@
                             <td class="py-3 px-4 border-b">{{ $travel->arrival_date }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->arrival_time }}</td>
                             <td class="py-3 px-4 border-b">{{ $travel->travel_status }}</td>
-                            <td class="py-3 px-4 border-b flex flex-col gap-2"> 
+                            <td class="py-3 px-4 border-b flex flex-col gap-2">
                                 <a href="{{ route('travels.edit', $travel->travel_id) }}" class="bg-blue-500 text-white py-1 px-3 rounded hover:bg-blue-600">Bewerken</a>
-                                <form method="POST" action="{{ route('travels.destroy', $travel->travel_id) }}" onsubmit="return confirm('Weet je zeker dat je deze reis wilt verwijderen?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Verwijderen</button>
-                                </form>
-                            </td>                            
+                                @if($travel->travel_status === 'Geannuleerd')
+                                    <form method="POST" action="{{ route('travels.destroy', $travel->travel_id) }}" onsubmit="return confirm('Weet je zeker dat je deze reis wilt verwijderen?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-500 text-white py-1 px-3 rounded hover:bg-red-600">Verwijderen</button>
+                                    </form>
+                                @else
+                                    <button class="bg-gray-400 text-white py-1 px-3 rounded cursor-not-allowed" disabled>Verwijderen</button>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

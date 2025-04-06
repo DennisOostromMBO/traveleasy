@@ -18,6 +18,9 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/employee-dashboard', function () {
+    if (!in_array(auth()->user()->role_id, [1, 2])) {
+        abort(404, 'NOT FOUND');
+    }
     return view('employee-dashboard');
 })->middleware(['auth', 'verified'])->name('employee.dashboard');
 

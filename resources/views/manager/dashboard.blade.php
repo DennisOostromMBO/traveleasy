@@ -156,7 +156,15 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-700">
+                            @php
+                                $totalInclVat = 0;
+                                $totalExclVat = 0;
+                            @endphp
                             @foreach($paidInvoices as $invoice)
+                                @php
+                                    $totalInclVat += $invoice->amount_incl_vat;
+                                    $totalExclVat += $invoice->amount_incl_vat / 1.21; // Aangenomen dat de BTW 21% is
+                                @endphp
                                 <tr>
                                     <td class="py-3 px-4">{{ $invoice->invoice_number }}</td>
                                     <td class="py-3 px-4">€{{ number_format($invoice->amount_incl_vat, 2) }}</td>
@@ -166,6 +174,26 @@
                             @endforeach
                         </tbody>
                     </table>
+
+                    <!-- Totalen naast elkaar -->
+                    <div class="flex justify-between bg-gray-100 p-4 mt-4 rounded-lg">
+                        <div class="text-left">
+                            <h3 class="text-lg font-semibold">Totaal (excl. BTW):</h3>
+                            <p class="text-gray-700">€{{ number_format($totalExclVat, 2) }}</p>
+                        </div>
+                        <div class="text-right">
+                            <h3 class="text-lg font-semibold">Totaal (incl. BTW):</h3>
+                            <p class="text-gray-700">€{{ number_format($totalInclVat, 2) }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Extra stukje over totaal betaalde facturen -->
+                    <div class="bg-blue-100 p-4 mt-4 rounded-lg">
+                        <h3 class="text-lg font-semibold text-blue-800">Totaal Betaalde Facturen</h3>
+                        <p class="text-gray-700">
+                            Er zijn in totaal <strong>{{ $paidInvoices->count() }}</strong> betaalde facturen met een totaalbedrag van <strong>€{{ number_format($totalInclVat, 2) }}</strong> (inclusief BTW).
+                        </p>
+                    </div>
                 @endif
             </div>
         </div>

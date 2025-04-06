@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
@@ -83,13 +84,31 @@ class ProfileController extends Controller
             return back()->withErrors(['password' => __('The provided password does not match your current password.')]);
         }
 
-        // Call the stored procedure to delete the user
-        DB::statement('CALL spDeleteUser(?)', [
-            Auth::id(),
-        ]);
+        try {
+            // Controleer of de gebruiker de enige administrator is
+            $adminCount = DB::table('users')
+                ->where('role_id', 1) 
+                ->count();
 
-        Auth::logout();
+            if ($adminCount === 1 && Auth::user()->role_id === 1) {
+                // Flash een foutmelding naar de sessie
+                return back()->with('error', 'Je kunt je account niet verwijderen omdat je de enige administrator bent.');
+            }
 
-        return redirect('/');
+            // Call the stored procedure to delete the user
+            DB::statement('CALL spDeleteUser(?)', [
+                Auth::id(),
+            ]);
+
+            Auth::logout();
+
+            return redirect('/')->with('status', 'Account succesvol verwijderd.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            if ($e->getCode() === '45000') {
+                return back()->with('error', 'Kan account niet verwijderen: er moet minimaal één administrator zijn.');
+            }
+
+            return back()->with('error', 'Er is een fout opgetreden bij het verwijderen van je account.');
+        }
     }
 }

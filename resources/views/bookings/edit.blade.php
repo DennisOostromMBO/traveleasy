@@ -33,8 +33,13 @@
                     <label for="note" class="block text-gray-700">Opmerking</label>
                     <textarea name="note" id="note" class="w-full p-2 border border-gray-300 rounded mt-1">{{ $booking->note }}</textarea>
                 </div>
-                <div class="mb-4">
+                <div class="mb-4 flex justify-between">
                     <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded hover:bg-blue-700" onclick="return confirm('Weet u zeker dat u deze boeking wilt bijwerken?')">Boeking Bijwerken</button>
+                    <form action="{{ route('bookings.destroy', $booking->id) }}" method="POST" onsubmit="return confirm('Weet u zeker dat u deze boeking wilt verwijderen?')">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700">Boeking Verwijderen</button>
+                    </form>
                 </div>
             </form>
         </div>

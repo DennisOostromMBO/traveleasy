@@ -138,6 +138,8 @@ class BookingController extends Controller
 
     public function bookNow(Request $request, $id)
     {
+        dd($request->all()); // Debugging: Check if the method is called and what data is received
+
         if (!\Illuminate\Support\Facades\Auth::check()) {
             return redirect()->route('login')->with('error', 'U moet ingelogd zijn om een boeking te maken.');
         }
@@ -179,5 +181,7 @@ class BookingController extends Controller
             'is_active' => true,
         ]);
 
+        // Add a redirect after booking creation
+        return redirect()->route('bookings.show', $id)->with('success', 'Boeking succesvol aangemaakt!');
     }
 }
